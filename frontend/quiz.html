@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Quiz</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           QUIZ PAGE HEADER
+           ===================================================== */
+
+        .quiz-topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding-bottom: 22px;
+
+            margin-bottom: 22px;
+
+            border-bottom:
+                1px solid var(--border-light);
+
+        }
+
+
+        .quiz-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-align: left;
+
+            min-width: 0;
+
+        }
+
+
+        .quiz-brand-logo {
+
+            width: 46px;
+
+            height: 46px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 18px
+                rgba(57, 120, 246, 0.20);
+
+        }
+
+
+        .quiz-brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-width: 0;
+
+        }
+
+
+        .quiz-brand-text strong {
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            color: var(--text-main);
+
+            line-height: 1.2;
+
+        }
+
+
+        .quiz-brand-text span {
+
+            margin-top: 3px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           QUIZ META
+           ===================================================== */
+
+        .quiz-meta {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .quiz-meta-badge {
+
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary-dark);
+
+            border:
+                1px solid #d8e7ff;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =====================================================
+           TIMER
+           ===================================================== */
+
+        #timer {
+
+            min-width: 100px;
+
+            padding: 10px 15px;
+
+            text-align: center;
+
+            border-radius: 999px;
+
+            background: var(--danger-soft);
+
+            color: var(--danger-dark);
+
+            border:
+                1px solid #ffd1d1;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 5px 14px
+                rgba(228, 88, 88, 0.08);
+
+        }
+
+
+        /* =====================================================
+           PROGRESS AREA
+           ===================================================== */
+
+        .quiz-progress-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 9px;
+
+            gap: 12px;
+
+        }
+
+
+        .quiz-progress-label {
+
+            color: var(--text-secondary);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .quiz-progress-status {
+
+            color: var(--primary-dark);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =====================================================
+           QUESTION NUMBER
+           ===================================================== */
+
+        #questionNumber {
+
+            margin: 24px 0 12px;
+
+            color: var(--text-main);
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =====================================================
+           QUESTION CARD
+           ===================================================== */
+
+        .question-box {
+
+            margin-top: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7faff,
+                    #faf9ff
+                );
+
+            border:
+                1px solid #e5ebf5;
+
+            border-radius: 16px;
+
+            padding: 23px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(42, 73, 120, 0.04);
+
+        }
+
+
+        #questionText {
+
+            color: var(--text-main);
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            line-height: 1.65;
+
+        }
+
+
+        /* =====================================================
+           OPTIONS
+           ===================================================== */
+
+        .options {
+
+            margin-top: 20px;
+
+        }
+
+
+        .options label {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            width: 100%;
+
+            min-height: 58px;
+
+            margin: 0;
+
+            padding: 16px;
+
+            background: white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            color: var(--text-main);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+
+        }
+
+
+        .options label + label {
+
+            margin-top: 12px;
+
+        }
+
+
+        .options label:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #b9d2ff;
+
+            background: #fbfdff;
+
+            box-shadow:
+                0 8px 18px
+                rgba(42, 73, 120, 0.08);
+
+        }
+
+
+        .options input[type="radio"] {
+
+            width: 18px;
+
+            height: 18px;
+
+            margin: 2px 0 0;
+
+            flex-shrink: 0;
+
+            accent-color: var(--primary);
+
+            cursor: pointer;
+
+        }
+
+
+        .options span {
+
+            flex: 1;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            line-height: 1.45;
+
+        }
+
+
+        /* =====================================================
+           QUIZ NAVIGATION
+           ===================================================== */
+
+        .quiz-buttons {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1.2fr;
+
+            gap: 12px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .quiz-buttons button {
+
+            min-height: 46px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 11px 16px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    #4f8cff
+                );
+
+            box-shadow:
+                0 6px 15px
+                rgba(57, 120, 246, 0.15);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+
+        }
+
+
+        .quiz-buttons button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 19px
+                rgba(57, 120, 246, 0.19);
+
+        }
+
+
+        .quiz-buttons button:active {
+
+            transform: translateY(0);
+
+        }
+
+
+        #submitBtn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #328c78,
+                    #45a88f
+                );
+
+            box-shadow:
+                0 6px 15px
+                rgba(31, 167, 116, 0.15);
+
+        }
+
+
+        #submitBtn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #287766,
+                    #3b967f
+                );
+
+            box-shadow:
+                0 9px 19px
+                rgba(31, 167, 116, 0.20);
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 650px) {
+
+            .quiz-box {
+
+                padding: 22px 16px;
+
+            }
+
+
+            .quiz-topbar {
+
+                align-items: flex-start;
+
+            }
+
+
+            .quiz-brand-text strong {
+
+                font-size: 17px;
+
+            }
+
+
+            .quiz-brand-text span {
+
+                font-size: 11px;
+
+            }
+
+
+            .quiz-meta {
+
+                flex-direction: column;
+
+                align-items: flex-end;
+
+                gap: 7px;
+
+            }
+
+
+            .quiz-meta-badge {
+
+                display: none;
+
+            }
+
+
+            #timer {
+
+                min-width: 82px;
+
+                padding: 8px 11px;
+
+                font-size: 13px;
+
+            }
+
+
+            #questionNumber {
+
+                font-size: 18px;
+
+            }
+
+
+            .question-box {
+
+                padding: 18px;
+
+            }
+
+
+            #questionText {
+
+                font-size: 16px;
+
+            }
+
+
+            .options label {
+
+                min-height: 54px;
+
+                padding: 14px 12px;
+
+            }
+
+
+            .options span {
+
+                font-size: 14px;
+
+            }
+
+
+            .quiz-buttons {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .quiz-buttons button {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        @media (max-width: 390px) {
+
+            .quiz-topbar {
+
+                gap: 10px;
+
+            }
+
+
+            .quiz-brand-logo {
+
+                width: 42px;
+
+                height: 42px;
+
+                border-radius: 11px;
+
+            }
+
+
+            .quiz-brand-text strong {
+
+                font-size: 16px;
+
+            }
+
+
+            .quiz-box {
+
+                padding: 18px 12px;
+
+            }
+
+
+            .question-box {
+
+                padding: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="quiz-container">
+
+
+        <div class="quiz-box">
+
+
+            <!-- =================================================
+                 TOP BAR
+                 ================================================= -->
+
+            <div class="quiz-topbar">
+
+
+                <div class="quiz-brand">
+
+
+                    <div class="quiz-brand-logo">
+                        OQ
+                    </div>
+
+
+                    <div class="quiz-brand-text">
+
+                        <strong>
+                            Online Quiz Portal
+                        </strong>
+
+                        <span>
+                            Test. Learn. Prepare.
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="quiz-meta">
+
+                    <div class="quiz-meta-badge">
+                        Online Assessment
+                    </div>
+
+                    <div id="timer">
+                        15:00
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 PROGRESS
+                 ================================================= -->
+
+            <div class="quiz-progress-top">
+
+
+                <span class="quiz-progress-label">
+                    Quiz Progress
+                </span>
+
+
+                <span
+                    class="quiz-progress-status"
+                    id="progressStatus"
+                >
+                    Question 1
+                </span>
+
+
+            </div>
+
+
+            <div class="progress-container">
+
+                <div id="progressBar"></div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUESTION NUMBER
+                 Existing ID preserved
+                 ================================================= -->
+
+            <h3 id="questionNumber">
+                Question 1 of 15
+            </h3>
+
+
+            <!-- =================================================
+                 QUESTION
+                 Existing ID preserved
+                 ================================================= -->
+
+            <div class="question-box">
+
+                <p id="questionText"></p>
+
+            </div>
+
+
+            <!-- =================================================
+                 OPTIONS
+                 Existing IDs preserved
+                 ================================================= -->
+
+            <div class="options">
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="A"
+                    >
+
+                    <span id="optionA"></span>
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="B"
+                    >
+
+                    <span id="optionB"></span>
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="C"
+                    >
+
+                    <span id="optionC"></span>
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="D"
+                    >
+
+                    <span id="optionD"></span>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 NAVIGATION
+                 ================================================= -->
+
+            <div class="quiz-buttons">
+
+
+                <button id="prevBtn">
+                    Previous
+                </button>
+
+
+                <button id="nextBtn">
+                    Next
+                </button>
+
+
+                <button id="submitBtn">
+                    Submit Quiz
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EXISTING QUIZ JAVASCRIPT -->
+
+    <script src="js/quiz.js"></script>
+
+
+    <!-- =====================================================
+         SMALL UI SYNC
+         Does NOT control the quiz logic.
+         Only updates visual question progress if possible.
+         ===================================================== -->
+
+    <script>
+
+        const originalProgressBar =
+            document.getElementById(
+                "progressBar"
+            );
+
+
+        const originalQuestionNumber =
+            document.getElementById(
+                "questionNumber"
+            );
+
+
+        const progressStatus =
+            document.getElementById(
+                "progressStatus"
+            );
+
+
+        function syncQuizProgress() {
+
+            if (
+                !originalQuestionNumber ||
+                !progressStatus
+            ) {
+
+                return;
+
+            }
+
+
+            const text =
+                originalQuestionNumber.innerText
+                || "";
+
+
+            const match =
+                text.match(
+                    /Question\s+(\d+)/i
+                );
+
+
+            if (match) {
+
+                progressStatus.innerText =
+                    "Question " +
+                    match[1];
+
+            }
+
+        }
+
+
+        setInterval(
+            syncQuizProgress,
+            300
+        );
+
+    </script>
+
+
+</body>
+
+</html>

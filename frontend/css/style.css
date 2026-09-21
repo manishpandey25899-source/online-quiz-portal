@@ -1,0 +1,1466 @@
+/* =========================================================
+   OQ - ONLINE QUIZ PORTAL
+   GLOBAL UI / UX THEME
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
+
+:root {
+    --primary: #3978f6;
+    --primary-dark: #2864d8;
+    --primary-soft: #eaf2ff;
+
+    --secondary: #6b63e8;
+    --secondary-soft: #f0efff;
+
+    --success: #1fa774;
+    --success-soft: #eaf9f3;
+
+    --danger: #e45858;
+    --danger-dark: #c94343;
+    --danger-soft: #fff0f0;
+
+    --warning: #e7a72c;
+    --warning-soft: #fff8e7;
+
+    --text-main: #24324a;
+    --text-secondary: #667085;
+    --text-light: #8a95a7;
+
+    --border: #dfe7f2;
+    --border-light: #e9eef5;
+
+    --background: #f4f8fd;
+    --white: #ffffff;
+
+    --shadow-sm: 0 4px 12px rgba(42, 73, 120, 0.07);
+    --shadow-md: 0 10px 30px rgba(42, 73, 120, 0.10);
+    --shadow-lg: 0 18px 45px rgba(42, 73, 120, 0.13);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    --transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(57, 120, 246, 0.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(107, 99, 232, 0.08),
+            transparent 28%
+        ),
+        var(--background);
+
+    color: var(--text-main);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.5;
+
+    padding: 20px;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   COMMON PAGE CONTAINERS
+   ========================================================= */
+
+.container,
+.dashboard-container,
+.quiz-container,
+.result-container {
+    width: 100%;
+    min-height: calc(100vh - 40px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================================
+   BRAND / LOGO CLASSES
+   Future OQ branding support
+   ========================================================= */
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+
+.brand-logo {
+    width: 46px;
+    height: 46px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: var(--white);
+
+    font-size: 20px;
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 18px rgba(57, 120, 246, 0.22);
+
+    user-select: none;
+}
+
+
+.brand-name {
+    font-size: 21px;
+    font-weight: 800;
+
+    letter-spacing: -0.3px;
+
+    color: var(--text-main);
+}
+
+
+.brand-subtitle {
+    display: block;
+
+    margin-top: 1px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: var(--text-secondary);
+}
+
+
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
+.login-box {
+    background: var(--white);
+
+    width: min(400px, 100%);
+
+    padding: 40px 36px;
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation: cardEnter 0.55s ease both;
+}
+
+
+.login-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+}
+
+
+.login-box h1 {
+    text-align: center;
+
+    margin-bottom: 10px;
+
+    color: var(--text-main);
+
+    font-size: 30px;
+
+    letter-spacing: -0.6px;
+}
+
+
+.login-box p {
+    text-align: center;
+
+    color: var(--text-secondary);
+
+    margin-bottom: 26px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   REGISTER PAGE
+   ========================================================= */
+
+.register-box {
+    background: var(--white);
+
+    width: min(450px, 100%);
+
+    padding: 40px 36px;
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation: cardEnter 0.55s ease both;
+}
+
+
+.register-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--secondary),
+            var(--primary)
+        );
+}
+
+
+/* =========================================================
+   FORM ELEMENTS
+   ========================================================= */
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: var(--text-main);
+}
+
+
+.input-group input,
+.category-section select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-sm);
+
+    outline: none;
+
+    background: var(--white);
+
+    color: var(--text-main);
+
+    font-size: 15px;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+}
+
+
+.input-group input::placeholder,
+input::placeholder {
+    color: #a1aaba;
+}
+
+
+.input-group input:focus,
+.category-section select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 4px rgba(57, 120, 246, 0.11);
+}
+
+
+/* =========================================================
+   COMMON BUTTONS
+   ========================================================= */
+
+button {
+    font-family: inherit;
+}
+
+
+.login-btn {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #4f8cff
+        );
+
+    color: var(--white);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 16px rgba(57, 120, 246, 0.18);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+
+.login-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(57, 120, 246, 0.22);
+}
+
+
+.login-btn:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 10px rgba(57, 120, 246, 0.15);
+}
+
+
+.login-btn:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+.logout-btn {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--danger),
+            #ee6a61
+        );
+
+    color: var(--white);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-top: 10px;
+
+    box-shadow:
+        0 7px 16px rgba(228, 88, 88, 0.16);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+
+.logout-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            var(--danger-dark),
+            var(--danger)
+        );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(228, 88, 88, 0.20);
+}
+
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   REGISTER LINK
+   ========================================================= */
+
+.register-link {
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+}
+
+
+.register-link a {
+    text-decoration: none;
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+    transition: color var(--transition);
+}
+
+
+.register-link a:hover {
+    color: var(--primary-dark);
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard-container {
+    align-items: flex-start;
+
+    padding: 20px 0;
+}
+
+
+.dashboard-box {
+    background: var(--white);
+
+    width: min(1050px, 100%);
+
+    padding: 38px;
+
+    border:
+        1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    text-align: center;
+
+    position: relative;
+
+    animation: cardEnter 0.55s ease both;
+}
+
+
+.dashboard-box h1 {
+    margin-bottom: 10px;
+
+    color: var(--text-main);
+
+    font-size: 30px;
+
+    letter-spacing: -0.6px;
+}
+
+
+.dashboard-box h2 {
+    margin-bottom: 25px;
+
+    color: var(--text-secondary);
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+.dashboard-box h3 {
+    color: var(--text-main);
+
+    margin-bottom: 12px;
+}
+
+
+.category-section {
+    margin-bottom: 25px;
+}
+
+
+.category-section h3 {
+    margin-bottom: 10px;
+}
+
+
+.category-section select {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   QUIZ INFORMATION
+   ========================================================= */
+
+.quiz-info {
+    margin-bottom: 25px;
+
+    padding: 18px;
+
+    background: var(--primary-soft);
+
+    border: 1px solid #d9e8ff;
+
+    border-radius: var(--radius-md);
+}
+
+
+.quiz-info p {
+    margin: 8px 0;
+
+    color: var(--text-secondary);
+}
+
+
+/* =========================================================
+   QUIZ PAGE
+   ========================================================= */
+
+.quiz-container {
+    align-items: flex-start;
+
+    padding: 20px 0;
+}
+
+
+.quiz-box {
+    background: var(--white);
+
+    width: min(760px, 100%);
+
+    padding: 32px;
+
+    border:
+        1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    animation: cardEnter 0.55s ease both;
+}
+
+
+.quiz-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.quiz-header h2,
+.quiz-header h3 {
+    color: var(--text-main);
+}
+
+
+#timer {
+    min-width: 84px;
+
+    text-align: center;
+
+    background: var(--danger-soft);
+
+    color: var(--danger-dark);
+
+    padding: 9px 14px;
+
+    border:
+        1px solid #ffd1d1;
+
+    border-radius: 999px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.progress-container {
+    width: 100%;
+
+    height: 9px;
+
+    background: #e9eef6;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    margin-bottom: 22px;
+}
+
+
+#progressBar {
+    height: 100%;
+
+    width: 20%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    border-radius: 999px;
+
+    transition: width 0.35s ease;
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+.question-box {
+    margin: 24px 0;
+
+    padding: 20px;
+
+    background: #fbfdff;
+
+    border:
+        1px solid var(--border-light);
+
+    border-radius: var(--radius-md);
+
+    color: var(--text-main);
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   QUIZ OPTIONS
+   ========================================================= */
+
+.options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.options label {
+    display: block;
+
+    margin: 0;
+
+    padding: 14px 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    background: var(--white);
+
+    color: var(--text-main);
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+
+.options label:hover {
+    border-color: #b8d2ff;
+
+    background: #f8fbff;
+
+    transform: translateY(-1px);
+
+    box-shadow: var(--shadow-sm);
+}
+
+
+.options input {
+    margin-right: 10px;
+
+    accent-color: var(--primary);
+}
+
+
+/* =========================================================
+   QUIZ BUTTONS
+   ========================================================= */
+
+.quiz-buttons {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 24px;
+}
+
+
+.quiz-buttons button {
+    min-height: 44px;
+
+    min-width: 120px;
+
+    padding: 10px 20px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    cursor: pointer;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+
+.quiz-buttons button:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(57, 120, 246, 0.18);
+}
+
+
+.quiz-buttons button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESULT PAGE
+   ========================================================= */
+
+.result-container {
+    align-items: flex-start;
+
+    padding: 30px 0;
+}
+
+
+.result-box {
+    background: var(--white);
+
+    width: min(560px, 100%);
+
+    padding: 42px 38px;
+
+    border:
+        1px solid var(--border-light);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-lg);
+
+    text-align: center;
+
+    animation: cardEnter 0.55s ease both;
+}
+
+
+.result-box h1 {
+    margin-bottom: 25px;
+
+    color: var(--text-main);
+
+    font-size: 30px;
+}
+
+
+.result-details {
+    text-align: left;
+
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    background: #fbfdff;
+
+    border:
+        1px solid var(--border-light);
+
+    border-radius: var(--radius-md);
+}
+
+
+.result-details p {
+    margin: 12px 0;
+
+    font-size: 17px;
+
+    color: var(--text-secondary);
+}
+
+
+.result-details strong,
+.result-details b {
+    color: var(--text-main);
+}
+
+
+/* =========================================================
+   TABLES
+   Supports History + Admin tables
+   ========================================================= */
+
+table {
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    background: var(--white);
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius-md);
+}
+
+
+thead th {
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: var(--white);
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+th,
+td {
+    padding: 12px;
+
+    border-right:
+        1px solid var(--border-light);
+
+    border-bottom:
+        1px solid var(--border-light);
+
+    vertical-align: middle;
+}
+
+
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+tbody tr {
+    transition: background var(--transition);
+}
+
+
+tbody tr:hover {
+    background: #f8fbff;
+}
+
+
+/* =========================================================
+   COMMON CARD EFFECTS
+   ========================================================= */
+
+.card,
+.category-card,
+.stat-card,
+.action-card {
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+}
+
+
+.card:hover,
+.category-card:hover,
+.stat-card:hover,
+.action-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-md);
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color: var(--primary);
+}
+
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(57, 120, 246, 0.20);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   HR / SECTION SEPARATOR
+   ========================================================= */
+
+hr {
+    border: none;
+
+    border-top:
+        1px solid var(--border-light);
+
+    margin: 28px 0;
+}
+
+
+/* =========================================================
+   TEXT HELPERS
+   ========================================================= */
+
+.text-muted {
+    color: var(--text-secondary);
+}
+
+
+.text-success {
+    color: var(--success);
+}
+
+
+.text-danger {
+    color: var(--danger);
+}
+
+
+.text-warning {
+    color: var(--warning);
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.badge-primary {
+    color: var(--primary-dark);
+
+    background: var(--primary-soft);
+}
+
+
+.badge-success {
+    color: #167957;
+
+    background: var(--success-soft);
+}
+
+
+.badge-danger {
+    color: var(--danger-dark);
+
+    background: var(--danger-soft);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes softPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN - TABLETS
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    body {
+        padding: 15px;
+    }
+
+
+    .container,
+    .dashboard-container,
+    .quiz-container,
+    .result-container {
+        min-height:
+            calc(100vh - 30px);
+    }
+
+
+    .dashboard-box {
+        padding: 30px 24px;
+    }
+
+
+    .quiz-box {
+        padding: 26px 22px;
+    }
+
+
+    .result-box {
+        padding: 34px 26px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN - MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+
+        font-size: 14px;
+    }
+
+
+    .container,
+    .dashboard-container,
+    .quiz-container,
+    .result-container {
+        min-height:
+            calc(100vh - 20px);
+    }
+
+
+    .login-box,
+    .register-box,
+    .result-box {
+        width: 100%;
+
+        padding: 30px 20px;
+
+        border-radius: 15px;
+    }
+
+
+    .dashboard-box {
+        width: 100%;
+
+        padding: 26px 16px;
+
+        border-radius: 15px;
+    }
+
+
+    .quiz-box {
+        width: 100%;
+
+        padding: 22px 15px;
+
+        border-radius: 15px;
+    }
+
+
+    .login-box h1,
+    .dashboard-box h1,
+    .result-box h1 {
+        font-size: 25px;
+    }
+
+
+    .dashboard-box h2 {
+        font-size: 17px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .quiz-header {
+        align-items: flex-start;
+    }
+
+
+    .quiz-header h2,
+    .quiz-header h3 {
+        font-size: 18px;
+    }
+
+
+    #timer {
+        min-width: 78px;
+
+        padding: 8px 10px;
+
+        font-size: 13px;
+    }
+
+
+    .question-box {
+        padding: 16px;
+
+        font-size: 16px;
+
+        margin: 20px 0;
+    }
+
+
+    .options {
+        gap: 10px;
+    }
+
+
+    .options label {
+        padding: 13px 12px;
+
+        font-size: 14px;
+    }
+
+
+    .quiz-buttons {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .quiz-buttons button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    .result-details {
+        padding: 16px;
+    }
+
+
+    .result-details p {
+        font-size: 15px;
+    }
+
+
+    table {
+        font-size: 13px;
+    }
+
+
+    th,
+    td {
+        padding: 9px;
+    }
+
+
+    .brand-logo {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 11px;
+
+        font-size: 18px;
+    }
+
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+
+    .brand-subtitle {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE DEVICES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 7px;
+    }
+
+
+    .login-box,
+    .register-box,
+    .result-box {
+        padding: 26px 16px;
+    }
+
+
+    .dashboard-box {
+        padding: 22px 12px;
+    }
+
+
+    .quiz-box {
+        padding: 18px 11px;
+    }
+
+
+    .login-btn,
+    .logout-btn {
+        font-size: 14px;
+
+        min-height: 44px;
+    }
+
+
+    .quiz-header {
+        gap: 8px;
+    }
+
+
+    #timer {
+        font-size: 12px;
+
+        min-width: 70px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}

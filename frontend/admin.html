@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Admin Panel</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           ADMIN PAGE
+           ===================================================== */
+
+        .admin-page {
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           ADMIN HEADER
+           ===================================================== */
+
+        .admin-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding-bottom: 24px;
+
+            margin-bottom: 28px;
+
+            border-bottom:
+                1px solid var(--border-light);
+
+        }
+
+
+        .admin-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-align: left;
+
+        }
+
+
+        .admin-brand-logo {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 18px
+                rgba(57, 120, 246, 0.20);
+
+        }
+
+
+        .admin-brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .admin-brand-text strong {
+
+            color: var(--text-main);
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            line-height: 1.2;
+
+        }
+
+
+        .admin-brand-text span {
+
+            margin-top: 3px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+        }
+
+
+        .admin-badge {
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            background: var(--secondary-soft);
+
+            color: #544bc4;
+
+            border:
+                1px solid #ddd9ff;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =====================================================
+           PAGE TITLE
+           ===================================================== */
+
+        .admin-intro {
+
+            text-align: left;
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .admin-intro h1 {
+
+            margin-bottom: 6px;
+
+            color: var(--text-main);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .admin-intro p {
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .admin-stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 26px;
+
+        }
+
+
+        .admin-stat-card {
+
+            padding: 20px;
+
+            border:
+                1px solid var(--border-light);
+
+            border-radius: 15px;
+
+            background: #fbfdff;
+
+            text-align: left;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+
+        }
+
+
+        .admin-stat-card:hover {
+
+            transform: translateY(-3px);
+
+            border-color: #cbdcff;
+
+            box-shadow:
+                0 12px 25px
+                rgba(42, 73, 120, 0.08);
+
+        }
+
+
+        .admin-stat-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 85px;
+
+            height: 85px;
+
+            right: -25px;
+
+            bottom: -30px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(57, 120, 246, 0.07);
+
+            pointer-events: none;
+
+        }
+
+
+        .admin-stat-label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .admin-stat-value {
+
+            display: block;
+
+            color: var(--text-main);
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+        }
+
+
+        .users-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f9ff,
+                    #fbfdff
+                );
+
+        }
+
+
+        .attempts-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7f5ff,
+                    #fbfdff
+                );
+
+        }
+
+
+        .questions-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f3fbf8,
+                    #fbfdff
+                );
+
+        }
+
+
+        /* =====================================================
+           REFRESH BUTTON
+           ===================================================== */
+
+        .admin-refresh {
+
+            margin-bottom: 28px;
+
+        }
+
+
+        /* =====================================================
+           GENERAL SECTION
+           ===================================================== */
+
+        .admin-section {
+
+            padding: 24px;
+
+            margin-bottom: 24px;
+
+            border:
+                1px solid var(--border-light);
+
+            border-radius: 16px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 5px 15px
+                rgba(42, 73, 120, 0.04);
+
+            text-align: left;
+
+        }
+
+
+        .admin-section-header {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .admin-section-header h2 {
+
+            margin-bottom: 5px;
+
+            color: var(--text-main);
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+        }
+
+
+        .admin-section-header p {
+
+            color: var(--text-secondary);
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           ADD QUESTION FORM
+           ===================================================== */
+
+        .question-form {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 13px;
+
+        }
+
+
+        .question-form input {
+
+            margin: 0;
+
+        }
+
+
+        .question-form .full-width {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .question-form
+        #addQuestionBtn {
+
+            grid-column: 1 / -1;
+
+            margin-top: 3px;
+
+        }
+
+
+        /* =====================================================
+           CONTENT LIST
+           ===================================================== */
+
+        .admin-list {
+
+            width: 100%;
+
+            max-height: 580px;
+
+            overflow-y: auto;
+
+            overflow-x: hidden;
+
+            padding-right: 4px;
+
+        }
+
+
+        .admin-list::-webkit-scrollbar {
+
+            width: 7px;
+
+        }
+
+
+        .admin-list::-webkit-scrollbar-track {
+
+            background: #f1f4f8;
+
+            border-radius: 10px;
+
+        }
+
+
+        .admin-list::-webkit-scrollbar-thumb {
+
+            background: #c7d2e3;
+
+            border-radius: 10px;
+
+        }
+
+
+        /* =====================================================
+           QUESTIONS LIST
+           ===================================================== */
+
+        #questionList > div {
+
+            border:
+                1px solid var(--border-light) !important;
+
+            border-radius: 12px !important;
+
+            padding: 16px !important;
+
+            margin: 0 0 12px 0 !important;
+
+            background: #fbfdff !important;
+
+            text-align: left !important;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+
+        }
+
+
+        #questionList > div:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #cbdcff !important;
+
+            box-shadow:
+                0 8px 18px
+                rgba(42, 73, 120, 0.07);
+
+        }
+
+
+        #questionList p {
+
+            margin: 7px 0;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+        }
+
+
+        #questionList p b {
+
+            color: var(--text-main);
+
+        }
+
+
+        #questionList button {
+
+            width: auto !important;
+
+            min-height: 38px;
+
+            padding: 8px 14px !important;
+
+            margin-right: 7px;
+
+            margin-bottom: 0 !important;
+
+            border-radius: 8px !important;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           ADMIN TABLE AREA
+           ===================================================== */
+
+        .admin-table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            -webkit-overflow-scrolling: touch;
+
+        }
+
+
+        #attemptList,
+        #userList {
+
+            text-align: left;
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
+        .admin-back {
+
+            margin-top: 2px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .admin-stats {
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .admin-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .admin-badge {
+
+                align-self: flex-start;
+
+            }
+
+
+            .admin-stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .question-form {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .question-form .full-width {
+
+                grid-column: auto;
+
+            }
+
+
+            .question-form
+            #addQuestionBtn {
+
+                grid-column: auto;
+
+            }
+
+
+            .admin-section {
+
+                padding: 18px 14px;
+
+            }
+
+
+            .admin-intro h1 {
+
+                font-size: 26px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .dashboard-box {
+
+                padding:
+                    22px 12px;
+
+            }
+
+
+            .admin-brand-logo {
+
+                width: 43px;
+
+                height: 43px;
+
+                border-radius: 12px;
+
+            }
+
+
+            .admin-brand-text strong {
+
+                font-size: 18px;
+
+            }
+
+
+            .admin-stat-value {
+
+                font-size: 25px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="dashboard-container">
+
+
+        <div class="dashboard-box admin-page">
+
+
+            <!-- =================================================
+                 ADMIN HEADER
+                 ================================================= -->
+
+            <div class="admin-header">
+
+
+                <div class="admin-brand">
+
+
+                    <div class="admin-brand-logo">
+                        OQ
+                    </div>
+
+
+                    <div class="admin-brand-text">
+
+                        <strong>
+                            Online Quiz Portal
+                        </strong>
+
+                        <span>
+                            Test. Learn. Prepare.
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="admin-badge">
+                    Admin Panel
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 PAGE INTRO
+                 ================================================= -->
+
+            <div class="admin-intro">
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Manage users, quiz questions and assessment activity.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATISTICS
+                 Existing IDs preserved
+                 ================================================= -->
+
+            <div class="admin-stats">
+
+
+                <div class="admin-stat-card users-card">
+
+                    <span class="admin-stat-label">
+                        Total Users
+                    </span>
+
+                    <span
+                        id="totalUsers"
+                        class="admin-stat-value"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="admin-stat-card attempts-card">
+
+                    <span class="admin-stat-label">
+                        Total Quiz Attempts
+                    </span>
+
+                    <span
+                        id="totalAttempts"
+                        class="admin-stat-value"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="admin-stat-card questions-card">
+
+                    <span class="admin-stat-label">
+                        Total Questions
+                    </span>
+
+                    <span
+                        id="totalQuestions"
+                        class="admin-stat-value"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 REFRESH
+                 ================================================= -->
+
+            <div class="admin-refresh">
+
+                <button
+                    id="loadBtn"
+                    class="login-btn"
+                >
+                    Refresh Data
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 ADD QUESTION
+                 Existing IDs preserved
+                 ================================================= -->
+
+            <section class="admin-section">
+
+
+                <div class="admin-section-header">
+
+                    <h2>
+                        Add New Question
+                    </h2>
+
+                    <p>
+                        Add a question to an existing quiz category.
+                    </p>
+
+                </div>
+
+
+                <div class="question-form">
+
+
+                    <input
+                        type="text"
+                        id="questionText"
+                        placeholder="Enter Question"
+                    >
+
+
+                    <input
+                        type="text"
+                        id="optionA"
+                        placeholder="Option A"
+                    >
+
+
+                    <input
+                        type="text"
+                        id="optionB"
+                        placeholder="Option B"
+                    >
+
+
+                    <input
+                        type="text"
+                        id="optionC"
+                        placeholder="Option C"
+                    >
+
+
+                    <input
+                        type="text"
+                        id="optionD"
+                        placeholder="Option D"
+                    >
+
+
+                    <input
+                        type="text"
+                        id="correctAnswer"
+                        placeholder="Correct Answer"
+                    >
+
+
+                    <input
+                        type="number"
+                        id="categoryId"
+                        placeholder="Category ID (1-11)"
+                        min="1"
+                        max="11"
+                    >
+
+
+                    <button
+                        id="addQuestionBtn"
+                        class="login-btn"
+                    >
+                        Add Question
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 QUESTIONS
+                 ================================================= -->
+
+            <section class="admin-section">
+
+
+                <div class="admin-section-header">
+
+                    <h2>
+                        Questions Management
+                    </h2>
+
+                    <p>
+                        View, edit or delete quiz questions.
+                    </p>
+
+                </div>
+
+
+                <div class="admin-list">
+
+                    <div id="questionList"></div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 QUIZ ATTEMPTS
+                 ================================================= -->
+
+            <section class="admin-section">
+
+
+                <div class="admin-section-header">
+
+                    <h2>
+                        Quiz Attempts
+                    </h2>
+
+                    <p>
+                        Review assessment attempts recorded in the system.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="admin-table-wrapper"
+                    id="attemptList"
+                >
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 USERS
+                 ================================================= -->
+
+            <section class="admin-section">
+
+
+                <div class="admin-section-header">
+
+                    <h2>
+                        User Management
+                    </h2>
+
+                    <p>
+                        View registered users and manage their roles.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="admin-table-wrapper"
+                    id="userList"
+                >
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 BACK
+                 ================================================= -->
+
+            <button
+                onclick="window.location.href='dashboard.html'"
+                class="login-btn admin-back"
+            >
+                Back To Dashboard
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EXISTING ADMIN JAVASCRIPT -->
+
+    <script src="js/admin.js"></script>
+
+
+</body>
+
+</html>

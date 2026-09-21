@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           DASHBOARD HEADER
+           ===================================================== */
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            padding-bottom: 26px;
+            margin-bottom: 28px;
+
+            border-bottom: 1px solid var(--border-light);
+        }
+
+
+        .dashboard-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            text-align: left;
+        }
+
+
+        .dashboard-brand-logo {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 19px;
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 18px rgba(57, 120, 246, 0.20);
+        }
+
+
+        .dashboard-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .dashboard-brand-text strong {
+            font-size: 20px;
+            color: var(--text-main);
+            line-height: 1.1;
+        }
+
+
+        .dashboard-brand-text span {
+            margin-top: 4px;
+
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+
+        .dashboard-user {
+            padding: 9px 14px;
+
+            border-radius: 999px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary-dark);
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           WELCOME SECTION
+           ===================================================== */
+
+        .welcome-section {
+            padding: 28px;
+
+            margin-bottom: 30px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f9ff,
+                    #f6f4ff
+                );
+
+            border: 1px solid var(--border-light);
+
+            text-align: left;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .welcome-section::after {
+            content: "";
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(57, 120, 246, 0.08);
+
+            right: -55px;
+            top: -70px;
+
+            pointer-events: none;
+        }
+
+
+        .welcome-section h1 {
+            margin: 0 0 8px 0;
+
+            font-size: 32px;
+            font-weight: 800;
+
+            color: var(--text-main);
+
+            letter-spacing: -0.7px;
+        }
+
+
+        .welcome-section p {
+            margin: 0;
+
+            color: var(--text-secondary);
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           QUIZ SECTION
+           ===================================================== */
+
+        .quiz-section-heading {
+            text-align: left;
+
+            margin-bottom: 16px;
+        }
+
+
+        .quiz-section-heading h3 {
+            margin-bottom: 5px;
+
+            font-size: 21px;
+            color: var(--text-main);
+        }
+
+
+        .quiz-section-heading p {
+            color: var(--text-secondary);
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CATEGORY GRID
+           ===================================================== */
+
+        .category-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .category-card {
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: white;
+
+            padding: 18px 14px;
+
+            min-height: 110px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .category-card:hover {
+            transform: translateY(-4px);
+
+            border-color: #bfd5ff;
+
+            box-shadow:
+                0 12px 25px rgba(42, 73, 120, 0.10);
+
+            background: #fbfdff;
+        }
+
+
+        .category-card.active {
+            border-color: var(--primary);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f1f6ff,
+                    #f8f7ff
+                );
+
+            box-shadow:
+                0 10px 22px rgba(57, 120, 246, 0.13);
+        }
+
+
+        .category-number {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 11px;
+
+            border-radius: 9px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary-dark);
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+
+        .category-card.active .category-number {
+            background: var(--primary);
+
+            color: white;
+        }
+
+
+        .category-card h4 {
+            margin: 0;
+
+            font-size: 15px;
+
+            color: var(--text-main);
+
+            line-height: 1.35;
+        }
+
+
+        /* =====================================================
+           EXISTING CATEGORY SELECT
+           ===================================================== */
+
+        .category-section {
+            margin-bottom: 24px;
+        }
+
+
+        .category-section label {
+            display: block;
+
+            text-align: left;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: var(--text-secondary);
+        }
+
+
+        .category-section select {
+            background: white;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           QUIZ INFO CARDS
+           ===================================================== */
+
+        .quiz-info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin-bottom: 24px;
+
+            padding: 0;
+
+            background: transparent;
+
+            border: none;
+        }
+
+
+        .quiz-stat {
+            padding: 17px;
+
+            border:
+                1px solid var(--border-light);
+
+            background: #fbfdff;
+
+            border-radius: 13px;
+
+            text-align: left;
+        }
+
+
+        .quiz-stat-label {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .quiz-stat-value {
+            color: var(--text-main);
+
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           DASHBOARD ACTIONS
+           ===================================================== */
+
+        .dashboard-actions {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 12px;
+
+            margin-top: 14px;
+        }
+
+
+        .dashboard-actions .login-btn,
+        .dashboard-actions .logout-btn {
+            margin-top: 0;
+        }
+
+
+        /* =====================================================
+           ADMIN BUTTON
+           ===================================================== */
+
+        #adminBtn {
+            display: none;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .category-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .dashboard-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                padding-bottom: 20px;
+            }
+
+
+            .dashboard-user {
+                align-self: flex-start;
+            }
+
+
+            .welcome-section {
+                padding: 22px 18px;
+            }
+
+
+            .welcome-section h1 {
+                font-size: 27px;
+            }
+
+
+            .category-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 10px;
+            }
+
+
+            .category-card {
+                min-height: 105px;
+
+                padding: 15px 12px;
+            }
+
+
+            .quiz-info {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .dashboard-actions {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 390px) {
+
+            .dashboard-brand-logo {
+                width: 43px;
+                height: 43px;
+
+                border-radius: 12px;
+            }
+
+
+            .dashboard-brand-text strong {
+                font-size: 18px;
+            }
+
+
+            .category-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .category-card {
+                min-height: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="dashboard-container">
+
+
+        <div class="dashboard-box">
+
+
+            <!-- =================================================
+                 HEADER
+                 ================================================= -->
+
+            <div class="dashboard-header">
+
+                <div class="dashboard-brand">
+
+                    <div class="dashboard-brand-logo">
+                        OQ
+                    </div>
+
+                    <div class="dashboard-brand-text">
+
+                        <strong>
+                            Online Quiz Portal
+                        </strong>
+
+                        <span>
+                            Test. Learn. Prepare.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="dashboard-user"
+                    id="dashboardUser"
+                >
+                    Student
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 WELCOME
+                 ================================================= -->
+
+            <div class="welcome-section">
+
+                <h1>
+                    Welcome Back!
+                </h1>
+
+                <p>
+                    Choose a category and start your quiz.
+                    Test your knowledge and prepare for your next opportunity.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUIZ CATEGORY
+                 ================================================= -->
+
+            <div class="quiz-section-heading">
+
+                <h3>
+                    Choose Your Quiz
+                </h3>
+
+                <p>
+                    Select a subject from the categories below.
+                </p>
+
+            </div>
+
+
+            <!-- CATEGORY CARDS -->
+
+            <div class="category-grid">
+
+
+                <div
+                    class="category-card"
+                    data-category="1"
+                >
+
+                    <div class="category-number">
+                        01
+                    </div>
+
+                    <h4>
+                        Java
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="2"
+                >
+
+                    <div class="category-number">
+                        02
+                    </div>
+
+                    <h4>
+                        DBMS
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="3"
+                >
+
+                    <div class="category-number">
+                        03
+                    </div>
+
+                    <h4>
+                        Operating System
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="4"
+                >
+
+                    <div class="category-number">
+                        04
+                    </div>
+
+                    <h4>
+                        Computer Networks
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="5"
+                >
+
+                    <div class="category-number">
+                        05
+                    </div>
+
+                    <h4>
+                        HTML
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="6"
+                >
+
+                    <div class="category-number">
+                        06
+                    </div>
+
+                    <h4>
+                        CSS
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="7"
+                >
+
+                    <div class="category-number">
+                        07
+                    </div>
+
+                    <h4>
+                        JavaScript
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="8"
+                >
+
+                    <div class="category-number">
+                        08
+                    </div>
+
+                    <h4>
+                        SQL
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="9"
+                >
+
+                    <div class="category-number">
+                        09
+                    </div>
+
+                    <h4>
+                        Aptitude
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="10"
+                >
+
+                    <div class="category-number">
+                        10
+                    </div>
+
+                    <h4>
+                        Logical Reasoning
+                    </h4>
+
+                </div>
+
+
+                <div
+                    class="category-card"
+                    data-category="11"
+                >
+
+                    <div class="category-number">
+                        11
+                    </div>
+
+                    <h4>
+                        Verbal Ability
+                    </h4>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 EXISTING CATEGORY SELECT
+                 Kept for dashboard.js compatibility
+                 ================================================= -->
+
+            <div class="category-section">
+
+                <label for="category">
+                    Selected Category
+                </label>
+
+
+                <select id="category">
+
+                    <option value="">
+                        Choose Category
+                    </option>
+
+                    <option value="1">
+                        Java
+                    </option>
+
+                    <option value="2">
+                        DBMS
+                    </option>
+
+                    <option value="3">
+                        Operating System
+                    </option>
+
+                    <option value="4">
+                        Computer Networks
+                    </option>
+
+                    <option value="5">
+                        HTML
+                    </option>
+
+                    <option value="6">
+                        CSS
+                    </option>
+
+                    <option value="7">
+                        JavaScript
+                    </option>
+
+                    <option value="8">
+                        SQL
+                    </option>
+
+                    <option value="9">
+                        Aptitude
+                    </option>
+
+                    <option value="10">
+                        Logical Reasoning
+                    </option>
+
+                    <option value="11">
+                        Verbal Ability
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUIZ INFORMATION
+                 ================================================= -->
+
+            <div class="quiz-info">
+
+
+                <div class="quiz-stat">
+
+                    <span class="quiz-stat-label">
+                        Number of Questions
+                    </span>
+
+                    <span class="quiz-stat-value">
+                        15
+                    </span>
+
+                </div>
+
+
+                <div class="quiz-stat">
+
+                    <span class="quiz-stat-label">
+                        Time Limit
+                    </span>
+
+                    <span class="quiz-stat-value">
+                        15 Minutes
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+                 ================================================= -->
+
+            <div class="dashboard-actions">
+
+
+                <button
+                    id="startQuizBtn"
+                    class="login-btn"
+                >
+                    Start Quiz
+                </button>
+
+
+                <button
+                    onclick="window.location.href='history.html'"
+                    class="login-btn"
+                >
+                    View History
+                </button>
+
+
+                <button
+                    id="adminBtn"
+                    class="login-btn"
+                    onclick="window.location.href='admin.html'"
+                >
+                    Admin Panel
+                </button>
+
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <button
+                id="logoutBtn"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         EXISTING DASHBOARD JAVASCRIPT
+         ===================================================== -->
+
+    <script src="js/dashboard.js"></script>
+
+
+    <!-- =====================================================
+         DASHBOARD UI LOGIC
+         Only handles visual category selection + admin button.
+         Existing dashboard.js remains untouched.
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           CATEGORY CARD SELECTION
+           ===================================================== */
+
+        const categorySelect =
+            document.getElementById("category");
+
+        const categoryCards =
+            document.querySelectorAll(".category-card");
+
+
+        categoryCards.forEach(card => {
+
+            card.addEventListener(
+                "click",
+                function() {
+
+                    const categoryId =
+                        this.getAttribute(
+                            "data-category"
+                        );
+
+
+                    categorySelect.value =
+                        categoryId;
+
+
+                    categoryCards.forEach(
+                        item => {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add("active");
+
+                }
+            );
+
+        });
+
+
+        /* =====================================================
+           SELECT DROPDOWN SYNC
+           ===================================================== */
+
+        categorySelect.addEventListener(
+            "change",
+            function() {
+
+                categoryCards.forEach(
+                    card => {
+
+                        card.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                if (this.value !== "") {
+
+                    const selectedCard =
+                        document.querySelector(
+                            '.category-card[data-category="' +
+                            this.value +
+                            '"]'
+                        );
+
+
+                    if (selectedCard) {
+
+                        selectedCard.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SHOW USER NAME
+           ===================================================== */
+
+        const storedUserName =
+            localStorage.getItem(
+                "userName"
+            );
+
+
+        if (storedUserName) {
+
+            document.getElementById(
+                "dashboardUser"
+            ).innerText =
+                "Welcome, " +
+                storedUserName;
+
+        }
+
+
+        /* =====================================================
+           ADMIN BUTTON
+           ===================================================== */
+
+        const storedRole =
+            localStorage.getItem(
+                "userRole"
+            );
+
+
+        if (
+            storedRole &&
+            storedRole.toLowerCase() === "admin"
+        ) {
+
+            document.getElementById(
+                "adminBtn"
+            ).style.display =
+                "block";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

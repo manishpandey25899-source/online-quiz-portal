@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Result</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           RESULT HEADER
+           ===================================================== */
+
+        .result-brand {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .result-brand-logo {
+
+            width: 52px;
+
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 9px 20px
+                rgba(57, 120, 246, 0.20);
+
+        }
+
+
+        /* =====================================================
+           COMPLETION SECTION
+           ===================================================== */
+
+        .result-title {
+
+            margin-bottom: 6px;
+
+            color: var(--text-main);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .result-subtitle {
+
+            margin-bottom: 28px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           SCORE DISPLAY
+           ===================================================== */
+
+        .score-display {
+
+            width: 150px;
+
+            height: 150px;
+
+            margin: 0 auto 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf4ff,
+                    #f2efff
+                );
+
+            border:
+                8px solid #ffffff;
+
+            box-shadow:
+                0 0 0 1px #dce7f6,
+                0 14px 30px
+                rgba(42, 73, 120, 0.10);
+
+            animation:
+                scoreAppear 0.7s ease both;
+
+        }
+
+
+        .score-label {
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 2px;
+
+        }
+
+
+        #score {
+
+            color: var(--primary-dark);
+
+            font-size: 34px;
+
+            font-weight: 800;
+
+            line-height: 1.1;
+
+        }
+
+
+        /* =====================================================
+           RESULT DETAILS
+           ===================================================== */
+
+        .result-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+
+            text-align: left;
+
+            margin-bottom: 25px;
+
+            padding: 0;
+
+            background: transparent;
+
+            border: none;
+
+        }
+
+
+        .result-stat {
+
+            padding: 17px;
+
+            border:
+                1px solid var(--border-light);
+
+            border-radius: 13px;
+
+            background: #fbfdff;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+
+        }
+
+
+        .result-stat:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #cbdcff;
+
+            box-shadow:
+                0 8px 18px
+                rgba(42, 73, 120, 0.07);
+
+        }
+
+
+        .result-stat-label {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .result-stat-value {
+
+            display: block;
+
+            color: var(--text-main);
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+        }
+
+
+        .result-stat.correct-stat {
+
+            background: var(--success-soft);
+
+            border-color: #d2f0e3;
+
+        }
+
+
+        .result-stat.correct-stat
+        .result-stat-value {
+
+            color: #187b59;
+
+        }
+
+
+        .result-stat.wrong-stat {
+
+            background: var(--danger-soft);
+
+            border-color: #ffd9d9;
+
+        }
+
+
+        .result-stat.wrong-stat
+        .result-stat-value {
+
+            color: var(--danger-dark);
+
+        }
+
+
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
+
+        .result-actions {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 11px;
+
+        }
+
+
+        .result-actions button {
+
+            margin: 0;
+
+        }
+
+
+        #answerKeyBtn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--secondary),
+                    #7d75ef
+                );
+
+            box-shadow:
+                0 7px 16px
+                rgba(107, 99, 232, 0.16);
+
+        }
+
+
+        #answerKeyBtn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #5952d1,
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 10px 20px
+                rgba(107, 99, 232, 0.21);
+
+        }
+
+
+        /* =====================================================
+           SCORE ANIMATION
+           ===================================================== */
+
+        @keyframes scoreAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform: scale(0.82);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: scale(1);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .result-box {
+
+                padding:
+                    30px 18px;
+
+            }
+
+
+            .result-brand-logo {
+
+                width: 48px;
+
+                height: 48px;
+
+            }
+
+
+            .result-title {
+
+                font-size: 26px;
+
+            }
+
+
+            .score-display {
+
+                width: 135px;
+
+                height: 135px;
+
+                margin-bottom: 24px;
+
+            }
+
+
+            #score {
+
+                font-size: 30px;
+
+            }
+
+
+            .result-details {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 9px;
+
+            }
+
+
+            .result-stat {
+
+                padding: 14px 12px;
+
+            }
+
+
+            .result-stat-value {
+
+                font-size: 19px;
+
+            }
+
+        }
+
+
+        @media (max-width: 360px) {
+
+            .result-details {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="result-container">
+
+
+        <div class="result-box">
+
+
+            <!-- =================================================
+                 OQ BRAND
+                 ================================================= -->
+
+            <div class="result-brand">
+
+                <div class="result-brand-logo">
+                    OQ
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COMPLETION MESSAGE
+                 ================================================= -->
+
+            <h1 class="result-title">
+                Quiz Completed!
+            </h1>
+
+
+            <p class="result-subtitle">
+                Here is your quiz performance summary.
+            </p>
+
+
+            <!-- =================================================
+                 SCORE
+                 Existing #score ID preserved
+                 ================================================= -->
+
+            <div class="score-display">
+
+                <span class="score-label">
+                    Your Score
+                </span>
+
+                <span id="score">
+                    75%
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULT DETAILS
+                 Existing IDs preserved
+                 ================================================= -->
+
+            <div class="result-details">
+
+
+                <!-- TOTAL -->
+
+                <div class="result-stat">
+
+                    <span class="result-stat-label">
+                        Total Questions
+                    </span>
+
+                    <span
+                        class="result-stat-value"
+                        id="totalQuestions"
+                    >
+                        20
+                    </span>
+
+                </div>
+
+
+                <!-- ATTEMPTED -->
+
+                <div class="result-stat">
+
+                    <span class="result-stat-label">
+                        Attempted
+                    </span>
+
+                    <span
+                        class="result-stat-value"
+                        id="attempted"
+                    >
+                        18
+                    </span>
+
+                </div>
+
+
+                <!-- CORRECT -->
+
+                <div
+                    class="result-stat correct-stat"
+                >
+
+                    <span class="result-stat-label">
+                        Correct
+                    </span>
+
+                    <span
+                        class="result-stat-value"
+                        id="correct"
+                    >
+                        15
+                    </span>
+
+                </div>
+
+
+                <!-- WRONG -->
+
+                <div
+                    class="result-stat wrong-stat"
+                >
+
+                    <span class="result-stat-label">
+                        Wrong
+                    </span>
+
+                    <span
+                        class="result-stat-value"
+                        id="wrong"
+                    >
+                        3
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+                 ================================================= -->
+
+            <div class="result-actions">
+
+
+                <button
+                    id="answerKeyBtn"
+                    class="login-btn"
+                >
+                    View Answer Key
+                </button>
+
+
+                <button
+                    id="dashboardBtn"
+                    class="login-btn"
+                >
+                    Back To Dashboard
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EXISTING RESULT JAVASCRIPT -->
+
+    <script src="js/result.js"></script>
+
+
+</body>
+
+</html>

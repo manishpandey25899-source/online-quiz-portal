@@ -1,0 +1,25 @@
+# Java / Spring Boot
+backend/target/
+*.class
+*.log
+
+# IntelliJ
+backend/.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Sensitive Spring Boot configuration
+backend/src/main/resources/application.properties
+
+# Local environment files
+.env
+.env.*
+
+# Database files and local data
+database/
+
+# OS files
+.DS_Store
+Thumbs.db

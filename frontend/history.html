@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Quiz History</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           HISTORY BRAND
+           ===================================================== */
+
+        .history-brand {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .history-brand-logo {
+
+            width: 50px;
+
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 18px
+                rgba(57, 120, 246, 0.20);
+
+        }
+
+
+        /* =====================================================
+           TITLE
+           ===================================================== */
+
+        .history-title {
+
+            margin-bottom: 6px;
+
+            color: var(--text-main);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .history-subtitle {
+
+            margin-bottom: 26px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           TABLE WRAPPER
+           ===================================================== */
+
+        .history-table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            border-radius: 13px;
+
+            margin-bottom: 24px;
+
+            -webkit-overflow-scrolling: touch;
+
+        }
+
+
+        #historyTable {
+
+            background: white;
+
+        }
+
+
+        #historyTable td {
+
+            color: var(--text-secondary);
+
+            font-weight: 600;
+
+        }
+
+
+        #historyTable td:first-child {
+
+            color: var(--text-main);
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
+        #backBtn {
+
+            margin-top: 2px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .result-box {
+
+                padding:
+                    30px 16px;
+
+            }
+
+
+            .history-brand-logo {
+
+                width: 46px;
+
+                height: 46px;
+
+                border-radius: 13px;
+
+            }
+
+
+            .history-title {
+
+                font-size: 26px;
+
+            }
+
+
+            .history-subtitle {
+
+                font-size: 13px;
+
+                margin-bottom: 22px;
+
+            }
+
+
+            .history-table-wrapper {
+
+                margin-left: -2px;
+
+                margin-right: -2px;
+
+                width: calc(100% + 4px);
+
+            }
+
+
+            .history-table-wrapper table {
+
+                min-width: 500px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="result-container">
+
+
+        <div class="result-box">
+
+
+            <!-- =================================================
+                 OQ BRAND
+                 ================================================= -->
+
+            <div class="history-brand">
+
+                <div class="history-brand-logo">
+                    OQ
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PAGE TITLE
+                 ================================================= -->
+
+            <h1 class="history-title">
+                Quiz History
+            </h1>
+
+
+            <p class="history-subtitle">
+                Review your previous quiz attempts and scores.
+            </p>
+
+
+            <!-- =================================================
+                 HISTORY TABLE
+                 ================================================= -->
+
+            <div class="history-table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Score
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <!--
+                        IMPORTANT:
+                        history.js inserts the rows here.
+                        ID must remain historyTable.
+                    -->
+
+                    <tbody id="historyTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                 BACK BUTTON
+                 ================================================= -->
+
+            <button
+                id="backBtn"
+                class="login-btn"
+            >
+                Back To Dashboard
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EXISTING HISTORY JAVASCRIPT -->
+
+    <script src="js/history.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,3220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Quiz Portal</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f9ff;
+            color: #24324a;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            border-bottom: 1px solid #e6edf5;
+
+            backdrop-filter: blur(14px);
+        }
+
+        .header-inner {
+            max-width: 1240px;
+
+            margin: auto;
+
+            min-height: 88px;
+
+            padding: 0 5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        /* BIGGER OQ LOGO */
+
+        .logo {
+            width: 62px;
+            height: 62px;
+
+            border-radius: 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3978f6,
+                    #6b63e8
+                );
+
+            color: #ffffff;
+
+            font-size: 27px;
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            box-shadow:
+                0 12px 28px rgba(57, 120, 246, 0.25);
+        }
+
+        .brand-text h1 {
+            font-size: 21px;
+            font-weight: 800;
+
+            color: #24324a;
+        }
+
+        .brand-text p {
+            margin-top: 4px;
+
+            font-size: 11px;
+
+            color: #7c8797;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+
+            gap: 28px;
+        }
+
+        .nav a {
+            color: #667085;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: #3978f6;
+        }
+
+        .header-login {
+            padding: 12px 23px;
+
+            background: #3978f6;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.25s ease;
+        }
+
+        .header-login:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 22px rgba(57, 120, 246, 0.24);
+        }
+
+
+        /* =====================================
+           HERO
+        ===================================== */
+
+        .hero-section {
+            position: relative;
+
+            min-height: 720px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #f7faff 0%,
+                    #f3f7ff 100%
+                );
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 520px;
+            height: 520px;
+
+            top: -230px;
+            right: -160px;
+
+            background: #e7efff;
+        }
+
+        .circle-2 {
+            width: 360px;
+            height: 360px;
+
+            bottom: -190px;
+            left: -130px;
+
+            background: #ebe7ff;
+        }
+
+        .hero {
+            position: relative;
+
+            max-width: 1240px;
+
+            min-height: 720px;
+
+            margin: auto;
+
+            padding: 85px 5% 70px;
+
+            display: grid;
+
+            grid-template-columns: 1.05fr 0.95fr;
+
+            align-items: center;
+
+            gap: 65px;
+        }
+
+        .hero-content {
+            animation: heroEnter 0.75s ease;
+        }
+
+        @keyframes heroEnter {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .hero-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 14px;
+
+            background: white;
+
+            border: 1px solid #dfe7f2;
+
+            border-radius: 30px;
+
+            color: #3978f6;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 20px rgba(50, 78, 118, 0.05);
+
+            margin-bottom: 22px;
+        }
+
+        .hero-badge-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #3978f6;
+        }
+
+        .hero h2 {
+            max-width: 670px;
+
+            font-size: clamp(50px, 6vw, 78px);
+
+            line-height: 1.02;
+
+            letter-spacing: -2.6px;
+
+            color: #24324a;
+
+            margin-bottom: 23px;
+        }
+
+        .hero h2 span {
+            color: #3978f6;
+        }
+
+        .hero-description {
+            max-width: 600px;
+
+            font-size: 17px;
+
+            line-height: 1.75;
+
+            color: #667085;
+
+            margin-bottom: 27px;
+        }
+
+        .hero-tagline {
+            font-size: 15px;
+
+            font-weight: 800;
+
+            color: #6b63e8;
+
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+
+            min-height: 50px;
+
+            padding: 0 25px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+        .primary-btn {
+
+            background: #3978f6;
+
+            color: white;
+
+            box-shadow:
+                0 12px 24px rgba(57, 120, 246, 0.22);
+        }
+
+        .primary-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 16px 28px rgba(57, 120, 246, 0.26);
+        }
+
+        .secondary-btn {
+
+            background: white;
+
+            color: #3978f6;
+
+            border: 1px solid #dce5f0;
+        }
+
+        .secondary-btn:hover {
+
+            transform: translateY(-3px);
+
+            border-color: #3978f6;
+        }
+
+
+        /* =====================================
+           HERO OQ TECH VISUAL
+        ===================================== */
+
+        .hero-visual {
+
+            position: relative;
+
+            min-height: 520px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .hero-tech-panel {
+
+            position: relative;
+
+            width: 480px;
+
+            min-height: 420px;
+
+            padding: 25px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f7faff,
+                    #edf3ff
+                );
+
+            border: 1px solid #dce5f1;
+
+            box-shadow:
+                0 28px 65px rgba(40, 67, 105, 0.13);
+
+            overflow: hidden;
+
+            animation: visualEnter 0.9s ease;
+        }
+
+        @keyframes visualEnter {
+
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+        .tech-grid {
+
+            position: absolute;
+
+            inset: 0;
+
+            opacity: 0.55;
+
+            background-image:
+                linear-gradient(
+                    #dbe5f4 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    #dbe5f4 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                36px 36px;
+        }
+
+        .tech-window {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 86%;
+
+            min-height: 370px;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,0.97);
+
+            border: 1px solid #dde6f0;
+
+            box-shadow:
+                0 18px 38px rgba(45, 70, 108, 0.10);
+        }
+
+        .tech-window-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+        .window-name {
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            color: #24324a;
+        }
+
+        .window-status {
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            padding: 6px 9px;
+
+            border-radius: 20px;
+
+            background: #edf3ff;
+
+            color: #3978f6;
+        }
+
+        .oq-center {
+
+            width: 112px;
+            height: 112px;
+
+            margin: 18px auto 18px;
+
+            border-radius: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3978f6,
+                    #6b63e8
+                );
+
+            color: white;
+
+            font-size: 39px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            box-shadow:
+                0 18px 38px rgba(74, 103, 226, 0.25);
+        }
+
+        .oq-heading {
+
+            text-align: center;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            color: #24324a;
+
+            margin-bottom: 7px;
+        }
+
+        .oq-subheading {
+
+            text-align: center;
+
+            font-size: 10px;
+
+            color: #8490a1;
+
+            margin-bottom: 18px;
+        }
+
+        .tech-progress {
+
+            height: 7px;
+
+            background: #edf1f6;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin-bottom: 16px;
+        }
+
+        .tech-progress span {
+
+            display: block;
+
+            width: 71%;
+
+            height: 100%;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #3978f6,
+                    #6b63e8
+                );
+        }
+
+        .tech-options {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+        }
+
+        .tech-option {
+
+            padding: 10px;
+
+            background: #f8faff;
+
+            border: 1px solid #e6ebf3;
+
+            border-radius: 9px;
+
+            font-size: 9px;
+
+            color: #6f7d91;
+
+            font-weight: 700;
+        }
+
+        .tech-option.active {
+
+            color: #3978f6;
+
+            background: #eef4ff;
+
+            border-color: #ccdfff;
+        }
+
+        .tech-bottom {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-top: 13px;
+        }
+
+        .tech-stat {
+
+            padding: 9px 7px;
+
+            border-radius: 9px;
+
+            background: #f7f9fc;
+
+            border: 1px solid #e8edf4;
+
+            text-align: center;
+        }
+
+        .tech-stat strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #24324a;
+        }
+
+        .tech-stat span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 7px;
+
+            color: #8490a1;
+        }
+
+        .floating-badge {
+
+            position: absolute;
+
+            top: 42px;
+            left: -2px;
+
+            z-index: 5;
+
+            padding: 12px 14px;
+
+            background: white;
+
+            border: 1px solid #e1e8f2;
+
+            border-radius: 13px;
+
+            box-shadow:
+                0 15px 35px rgba(45, 70, 108, 0.10);
+
+            animation: float 3.7s ease-in-out infinite;
+        }
+
+        .floating-badge strong {
+
+            display: block;
+
+            font-size: 14px;
+
+            color: #24324a;
+        }
+
+        .floating-badge span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 8px;
+
+            color: #8490a1;
+        }
+
+        .floating-code {
+
+            position: absolute;
+
+            right: -3px;
+            bottom: 30px;
+
+            z-index: 5;
+
+            width: 145px;
+
+            padding: 12px;
+
+            background: white;
+
+            border: 1px solid #e1e8f2;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 35px rgba(45, 70, 108, 0.10);
+
+            animation: float 4.1s ease-in-out infinite;
+        }
+
+        .floating-code .symbol {
+
+            width: 37px;
+            height: 37px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #edf3ff;
+
+            color: #3978f6;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            font-size: 16px;
+
+            font-weight: 900;
+
+            margin-bottom: 8px;
+        }
+
+        .floating-code strong {
+
+            display: block;
+
+            font-size: 10px;
+
+            color: #24324a;
+        }
+
+        .floating-code span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 7px;
+
+            color: #8490a1;
+        }
+
+        @keyframes float {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+        }
+
+
+        /* =====================================
+           SECTION COMMON
+        ===================================== */
+
+        .section {
+
+            max-width: 1240px;
+
+            margin: auto;
+
+            padding: 95px 5%;
+        }
+
+        .section-head {
+
+            display: flex;
+
+            align-items: end;
+            justify-content: space-between;
+
+            gap: 35px;
+
+            margin-bottom: 42px;
+        }
+
+        .section-label {
+
+            color: #3978f6;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+
+            font-size: clamp(31px, 4vw, 47px);
+
+            line-height: 1.1;
+
+            letter-spacing: -1px;
+
+            color: #24324a;
+        }
+
+        .section-text {
+
+            max-width: 440px;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color: #667085;
+        }
+
+
+        /* =====================================
+           CATEGORIES
+        ===================================== */
+
+        .categories-section {
+
+            background: white;
+
+            border-top: 1px solid #eaf0f7;
+
+            border-bottom: 1px solid #eaf0f7;
+        }
+
+        .category-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+        .category-card {
+
+            min-height: 155px;
+
+            padding: 23px;
+
+            background: #fbfcff;
+
+            border: 1px solid #e4eaf3;
+
+            border-radius: 17px;
+
+            transition: 0.28s ease;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .category-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+            height: 80px;
+
+            border-radius: 50%;
+
+            right: -25px;
+            bottom: -32px;
+
+            background: #edf3ff;
+        }
+
+        .category-card:hover {
+
+            transform: translateY(-6px);
+
+            background: white;
+
+            box-shadow:
+                0 18px 36px rgba(45, 70, 108, 0.08);
+
+            border-color: #dbe5f3;
+        }
+
+        .category-icon {
+
+            width: 44px;
+            height: 44px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #edf3ff;
+
+            color: #3978f6;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            margin-bottom: 18px;
+        }
+
+        .category-card h4 {
+
+            position: relative;
+
+            z-index: 2;
+
+            font-size: 16px;
+
+            line-height: 1.35;
+
+            color: #24324a;
+        }
+
+        .category-card p {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 8px;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            color: #8490a1;
+        }
+
+
+        /* =====================================
+           FEATURES
+        ===================================== */
+
+        .features-section {
+
+            background: #f6f9ff;
+        }
+
+        .feature-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .feature-card {
+
+            padding: 30px;
+
+            background: white;
+
+            border: 1px solid #e3eaf4;
+
+            border-radius: 20px;
+
+            transition: 0.28s ease;
+        }
+
+        .feature-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 18px 35px rgba(45, 70, 108, 0.08);
+        }
+
+        .feature-number {
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            color: #3978f6;
+
+            margin-bottom: 22px;
+        }
+
+        .feature-card h4 {
+
+            font-size: 20px;
+
+            margin-bottom: 10px;
+
+            color: #24324a;
+        }
+
+        .feature-card p {
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            color: #667085;
+        }
+
+
+        /* =====================================
+           TECH EXPERIENCE
+        ===================================== */
+
+        .experience-section {
+
+            background: white;
+        }
+
+        .experience {
+
+            display: grid;
+
+            grid-template-columns: 0.9fr 1.1fr;
+
+            align-items: center;
+
+            gap: 70px;
+        }
+
+        .system-visual {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 430px;
+
+            padding: 22px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f5f8ff,
+                    #eef3ff
+                );
+
+            border: 1px solid #dfe7f2;
+
+            box-shadow:
+                0 22px 48px rgba(40, 66, 104, 0.11);
+
+            overflow: hidden;
+        }
+
+        .grid-lines {
+
+            position: absolute;
+
+            inset: 0;
+
+            opacity: 0.55;
+
+            background-image:
+                linear-gradient(
+                    #dce6f5 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    #dce6f5 1px,
+                    transparent 1px
+                );
+
+            background-size: 38px 38px;
+        }
+
+        .system-window {
+
+            position: relative;
+
+            width: 84%;
+
+            margin: 22px auto;
+
+            background: rgba(255,255,255,0.97);
+
+            border: 1px solid #dde6f1;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 16px 35px rgba(45, 70, 108, 0.10);
+
+            z-index: 2;
+        }
+
+        .system-window-title {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+        .system-window-title strong {
+
+            font-size: 13px;
+
+            color: #24324a;
+        }
+
+        .system-online {
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            color: #3978f6;
+
+            background: #edf3ff;
+
+            padding: 6px 9px;
+
+            border-radius: 20px;
+        }
+
+        .system-code-card {
+
+            padding: 16px;
+
+            border-radius: 13px;
+
+            background: #f8faff;
+
+            border: 1px solid #e5ebf4;
+
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+
+            color: #68768b;
+
+            font-size: 12px;
+
+            line-height: 1.9;
+        }
+
+        .system-bars {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 9px;
+
+            margin-top: 14px;
+        }
+
+        .system-bar {
+
+            height: 55px;
+
+            border-radius: 11px;
+
+            background: #f7f9fc;
+
+            border: 1px solid #e7edf4;
+
+            padding: 10px;
+        }
+
+        .system-bar strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #24324a;
+        }
+
+        .system-bar span {
+
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 8px;
+
+            color: #8490a1;
+        }
+
+        .tech-float {
+
+            position: absolute;
+
+            z-index: 4;
+
+            background: white;
+
+            border: 1px solid #e1e8f2;
+
+            border-radius: 13px;
+
+            padding: 11px 13px;
+
+            box-shadow:
+                0 15px 32px rgba(45, 70, 108, 0.10);
+        }
+
+        .tech-float-one {
+
+            left: 15px;
+
+            top: 58px;
+
+            animation: float 3.6s ease-in-out infinite;
+        }
+
+        .tech-float-two {
+
+            right: 12px;
+
+            bottom: 52px;
+
+            animation: float 4.2s ease-in-out infinite;
+        }
+
+        .tech-float strong {
+
+            display: block;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            font-size: 13px;
+
+            color: #3978f6;
+        }
+
+        .tech-float span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 8px;
+
+            color: #8490a1;
+        }
+
+        .experience-content .section-label {
+
+            margin-bottom: 13px;
+        }
+
+        .experience-list {
+
+            margin-top: 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+        .experience-item {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 13px;
+        }
+
+        .check {
+
+            width: 29px;
+            height: 29px;
+
+            flex-shrink: 0;
+
+            border-radius: 9px;
+
+            background: #edf3ff;
+
+            color: #3978f6;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+
+            font-weight: 900;
+        }
+
+        .experience-item h4 {
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+
+            color: #24324a;
+        }
+
+        .experience-item p {
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            color: #798598;
+        }
+
+
+        /* =====================================
+           HOW IT WORKS
+        ===================================== */
+
+        .steps-section {
+
+            background: #f6f9ff;
+
+            border-top: 1px solid #e9eef6;
+
+            border-bottom: 1px solid #e9eef6;
+        }
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .step-card {
+
+            position: relative;
+
+            background: white;
+
+            border: 1px solid #e2e9f3;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            z-index: 2;
+
+            transition: 0.25s ease;
+        }
+
+        .step-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 18px 32px rgba(45, 70, 108, 0.08);
+        }
+
+        .step-number {
+
+            width: 48px;
+            height: 48px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3978f6,
+                    #6b63e8
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+
+            font-weight: 900;
+
+            margin-bottom: 22px;
+        }
+
+        .step-card h4 {
+
+            font-size: 19px;
+
+            margin-bottom: 9px;
+        }
+
+        .step-card p {
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            color: #667085;
+        }
+
+
+        /* =====================================
+           CTA
+        ===================================== */
+
+        .cta-section {
+
+            padding: 105px 5%;
+        }
+
+        .cta {
+
+            max-width: 1120px;
+
+            margin: auto;
+
+            padding: 65px 55px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3978f6,
+                    #6b63e8
+                );
+
+            color: white;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 24px 50px rgba(65, 91, 190, 0.20);
+        }
+
+        .cta::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            top: -140px;
+            right: -80px;
+        }
+
+        .cta::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.06);
+
+            bottom: -110px;
+            left: -60px;
+        }
+
+        .cta-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+        }
+
+        .cta h3 {
+
+            font-size: clamp(31px, 4vw, 46px);
+
+            line-height: 1.1;
+
+            margin-bottom: 13px;
+        }
+
+        .cta p {
+
+            max-width: 570px;
+
+            margin: 0 auto 27px;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color: rgba(255,255,255,0.86);
+        }
+
+        .cta-button {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 49px;
+
+            padding: 0 26px;
+
+            border-radius: 11px;
+
+            background: white;
+
+            color: #3978f6;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            transition: 0.25s ease;
+        }
+
+        .cta-button:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(0,0,0,0.12);
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        footer {
+
+            background: white;
+
+            border-top: 1px solid #e5ebf3;
+
+            padding: 26px 5%;
+        }
+
+        .footer-inner {
+
+            max-width: 1240px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .footer-brand {
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            color: #667085;
+        }
+
+        .footer-note {
+
+            font-size: 11px;
+
+            color: #98a2b3;
+        }
+
+
+        /* =====================================
+           TABLET
+        ===================================== */
+
+        @media (max-width: 1000px) {
+
+            .nav {
+                gap: 17px;
+            }
+
+            .hero {
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+                gap: 35px;
+
+                padding-top: 65px;
+            }
+
+            .hero h2,
+            .hero-description {
+
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+
+                justify-content: center;
+            }
+
+            .hero-visual {
+
+                min-height: 480px;
+            }
+
+            .category-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .experience {
+
+                grid-template-columns: 1fr;
+
+                gap: 50px;
+            }
+
+            .experience-content {
+
+                text-align: center;
+            }
+
+            .experience-list {
+
+                max-width: 650px;
+
+                margin-left: auto;
+                margin-right: auto;
+
+                text-align: left;
+            }
+
+            .steps {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* =====================================
+           MOBILE
+        ===================================== */
+
+        @media (max-width: 700px) {
+
+            .header-inner {
+
+                min-height: 72px;
+
+                padding: 0 17px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .brand {
+
+                gap: 10px;
+            }
+
+            .logo {
+
+                width: 50px;
+                height: 50px;
+
+                border-radius: 14px;
+
+                font-size: 22px;
+            }
+
+            .brand-text h1 {
+
+                font-size: 15px;
+            }
+
+            .brand-text p {
+
+                font-size: 8px;
+            }
+
+            .header-login {
+
+                padding: 9px 14px;
+
+                font-size: 11px;
+            }
+
+            .hero-section {
+
+                min-height: auto;
+            }
+
+            .hero {
+
+                min-height: auto;
+
+                padding: 45px 17px 35px;
+
+                gap: 26px;
+            }
+
+            .hero h2 {
+
+                font-size: 43px;
+
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+
+                font-size: 14px;
+
+                line-height: 1.65;
+            }
+
+            .hero-tagline {
+
+                font-size: 12px;
+
+                margin-bottom: 22px;
+            }
+
+            .hero-buttons {
+
+                flex-direction: column;
+
+                width: 100%;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+
+                width: 100%;
+            }
+
+            .hero-visual {
+
+                min-height: 380px;
+            }
+
+            .hero-tech-panel {
+
+                width: 100%;
+
+                max-width: 350px;
+
+                min-height: 350px;
+
+                padding: 14px;
+
+                border-radius: 22px;
+            }
+
+            .tech-window {
+
+                width: 92%;
+
+                min-height: 310px;
+
+                padding: 15px;
+
+            }
+
+            .oq-center {
+
+                width: 85px;
+                height: 85px;
+
+                border-radius: 24px;
+
+                font-size: 29px;
+
+                margin: 14px auto 14px;
+            }
+
+            .oq-heading {
+
+                font-size: 18px;
+            }
+
+            .oq-subheading {
+
+                font-size: 8px;
+
+                margin-bottom: 14px;
+            }
+
+            .tech-option {
+
+                font-size: 8px;
+
+                padding: 8px;
+            }
+
+            .tech-stat {
+
+                padding: 8px 5px;
+            }
+
+            .tech-stat strong {
+
+                font-size: 10px;
+            }
+
+            .tech-stat span {
+
+                font-size: 6px;
+            }
+
+            .floating-badge {
+
+                top: 10px;
+
+                left: -2px;
+
+                padding: 9px 10px;
+            }
+
+            .floating-badge strong {
+
+                font-size: 11px;
+            }
+
+            .floating-badge span {
+
+                font-size: 7px;
+            }
+
+            .floating-code {
+
+                right: -2px;
+
+                bottom: 12px;
+
+                width: 108px;
+
+                padding: 9px;
+            }
+
+            .floating-code .symbol {
+
+                width: 30px;
+                height: 30px;
+
+                font-size: 13px;
+
+                margin-bottom: 6px;
+            }
+
+            .floating-code strong {
+
+                font-size: 8px;
+            }
+
+            .floating-code span {
+
+                font-size: 6px;
+            }
+
+            .section {
+
+                padding: 70px 17px;
+            }
+
+            .section-head {
+
+                display: block;
+
+                margin-bottom: 30px;
+            }
+
+            .section-text {
+
+                margin-top: 15px;
+
+                max-width: none;
+            }
+
+            .category-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 11px;
+            }
+
+            .category-card {
+
+                min-height: 135px;
+
+                padding: 17px;
+            }
+
+            .category-icon {
+
+                width: 39px;
+                height: 39px;
+
+                margin-bottom: 14px;
+            }
+
+            .category-card h4 {
+
+                font-size: 13px;
+            }
+
+            .category-card p {
+
+                font-size: 9px;
+            }
+
+            .feature-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+
+                padding: 23px;
+            }
+
+            .system-visual {
+
+                height: 345px;
+
+                padding: 14px;
+            }
+
+            .system-window {
+
+                width: 92%;
+
+                margin: 17px auto;
+
+                padding: 15px;
+            }
+
+            .system-window-title strong {
+
+                font-size: 11px;
+            }
+
+            .system-code-card {
+
+                font-size: 9px;
+
+                line-height: 1.75;
+
+                padding: 12px;
+            }
+
+            .system-bars {
+
+                gap: 6px;
+            }
+
+            .system-bar {
+
+                height: 48px;
+
+                padding: 7px;
+            }
+
+            .system-bar strong {
+
+                font-size: 9px;
+            }
+
+            .system-bar span {
+
+                font-size: 7px;
+            }
+
+            .tech-float-one {
+
+                left: 4px;
+
+                top: 35px;
+            }
+
+            .tech-float-two {
+
+                right: 2px;
+
+                bottom: 27px;
+            }
+
+            .tech-float {
+
+                padding: 8px 10px;
+            }
+
+            .tech-float strong {
+
+                font-size: 10px;
+            }
+
+            .tech-float span {
+
+                font-size: 7px;
+            }
+
+            .steps {
+
+                gap: 14px;
+            }
+
+            .step-card {
+
+                padding: 23px;
+            }
+
+            .cta-section {
+
+                padding: 70px 17px;
+            }
+
+            .cta {
+
+                padding: 46px 22px;
+
+                border-radius: 22px;
+            }
+
+            footer {
+
+                padding: 22px 17px;
+            }
+
+            .footer-inner {
+
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header>
+
+        <div class="header-inner">
+
+            <a href="#home"
+               class="brand">
+
+                <div class="logo">
+                    OQ
+                </div>
+
+                <div class="brand-text">
+
+                    <h1>
+                        Online Quiz Portal
+                    </h1>
+
+                    <p>
+                        Test. Learn. Prepare.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#categories">
+                    Categories
+                </a>
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+            </nav>
+
+
+            <a href="login.html"
+               class="header-login">
+                Login
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section class="hero-section"
+             id="home">
+
+        <div class="hero-bg-circle circle-1"></div>
+
+        <div class="hero-bg-circle circle-2"></div>
+
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+
+                    <span class="hero-badge-dot"></span>
+
+                    ONLINE ASSESSMENT PLATFORM
+
+                </div>
+
+
+                <h2>
+
+                    Test.
+                    <span>Learn.</span>
+                    Prepare.
+
+                </h2>
+
+
+                <p class="hero-description">
+
+                    A simple place to practice technical and
+                    aptitude topics, take timed quizzes and
+                    understand your performance.
+
+                </p>
+
+
+                <p class="hero-tagline">
+
+                    Built for focused learning and assessment preparation.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="login.html"
+                       class="primary-btn">
+
+                        Get Started
+
+                    </a>
+
+
+                    <a href="register.html"
+                       class="secondary-btn">
+
+                        Create Account
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 NEW OQ TECH VISUAL
+            ================================== -->
+
+            <div class="hero-visual">
+
+
+                <div class="floating-badge">
+
+                    <strong>
+                        Computer Science
+                    </strong>
+
+                    <span>
+                        Learn through practice
+                    </span>
+
+                </div>
+
+
+                <div class="hero-tech-panel">
+
+                    <div class="tech-grid"></div>
+
+
+                    <div class="tech-window">
+
+
+                        <div class="tech-window-top">
+
+                            <div class="window-name">
+                                OQ Assessment Workspace
+                            </div>
+
+                            <div class="window-status">
+                                ONLINE
+                            </div>
+
+                        </div>
+
+
+                        <div class="oq-center">
+                            OQ
+                        </div>
+
+
+                        <div class="oq-heading">
+                            Start Your Assessment
+                        </div>
+
+
+                        <div class="oq-subheading">
+                            Practice. Assess. Improve.
+                        </div>
+
+
+                        <div class="tech-progress">
+                            <span></span>
+                        </div>
+
+
+                        <div class="tech-options">
+
+                            <div class="tech-option active">
+                                Java
+                            </div>
+
+                            <div class="tech-option">
+                                DBMS
+                            </div>
+
+                            <div class="tech-option">
+                                Operating System
+                            </div>
+
+                            <div class="tech-option">
+                                Computer Networks
+                            </div>
+
+                        </div>
+
+
+                        <div class="tech-bottom">
+
+                            <div class="tech-stat">
+
+                                <strong>
+                                    Quiz
+                                </strong>
+
+                                <span>
+                                    Assessment
+                                </span>
+
+                            </div>
+
+
+                            <div class="tech-stat">
+
+                                <strong>
+                                    Score
+                                </strong>
+
+                                <span>
+                                    Performance
+                                </span>
+
+                            </div>
+
+
+                            <div class="tech-stat">
+
+                                <strong>
+                                    Review
+                                </strong>
+
+                                <span>
+                                    Answer Key
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="floating-code">
+
+                    <div class="symbol">
+                        { }
+                    </div>
+
+                    <strong>
+                        Programming
+                    </strong>
+
+                    <span>
+                        Practice & Prepare
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         CATEGORIES
+    ====================================== -->
+
+    <section class="categories-section"
+             id="categories">
+
+        <div class="section">
+
+
+            <div class="section-head">
+
+                <div>
+
+                    <div class="section-label">
+                        EXPLORE
+                    </div>
+
+                    <h3 class="section-title">
+                        Choose Your Category
+                    </h3>
+
+                </div>
+
+
+                <p class="section-text">
+
+                    Practice the subjects that matter for
+                    academics, technical preparation and
+                    assessment practice.
+
+                </p>
+
+            </div>
+
+
+            <div class="category-grid">
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        J
+                    </div>
+
+                    <h4>
+                        Java
+                    </h4>
+
+                    <p>
+                        Programming & OOP concepts
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        D
+                    </div>
+
+                    <h4>
+                        DBMS
+                    </h4>
+
+                    <p>
+                        Database concepts
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        OS
+                    </div>
+
+                    <h4>
+                        Operating System
+                    </h4>
+
+                    <p>
+                        Processes & memory
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        CN
+                    </div>
+
+                    <h4>
+                        Computer Networks
+                    </h4>
+
+                    <p>
+                        Networking concepts
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        H
+                    </div>
+
+                    <h4>
+                        HTML
+                    </h4>
+
+                    <p>
+                        Web structure & markup
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        C
+                    </div>
+
+                    <h4>
+                        CSS
+                    </h4>
+
+                    <p>
+                        Styling & layouts
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        JS
+                    </div>
+
+                    <h4>
+                        JavaScript
+                    </h4>
+
+                    <p>
+                        Web programming
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        SQL
+                    </div>
+
+                    <h4>
+                        SQL
+                    </h4>
+
+                    <p>
+                        Queries & database practice
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        A
+                    </div>
+
+                    <h4>
+                        Aptitude
+                    </h4>
+
+                    <p>
+                        Numerical reasoning
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        LR
+                    </div>
+
+                    <h4>
+                        Logical Reasoning
+                    </h4>
+
+                    <p>
+                        Logic & problem solving
+                    </p>
+
+                </div>
+
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        VA
+                    </div>
+
+                    <h4>
+                        Verbal Ability
+                    </h4>
+
+                    <p>
+                        Language & communication
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         FEATURES
+    ====================================== -->
+
+    <section class="features-section"
+             id="features">
+
+        <div class="section">
+
+
+            <div class="section-head">
+
+                <div>
+
+                    <div class="section-label">
+                        WHY OQ
+                    </div>
+
+                    <h3 class="section-title">
+                        Made for Better Practice
+                    </h3>
+
+                </div>
+
+
+                <p class="section-text">
+
+                    Keep your preparation simple with the
+                    essential tools needed for an online
+                    assessment experience.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <h4>
+                        Timed Quizzes
+                    </h4>
+
+                    <p>
+
+                        Take assessments inside a structured
+                        timed environment that keeps the
+                        experience focused.
+
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+                    <h4>
+                        Instant Results
+                    </h4>
+
+                    <p>
+
+                        See your score, correct answers,
+                        attempted questions and performance
+                        immediately after finishing.
+
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+                    <h4>
+                        History & Review
+                    </h4>
+
+                    <p>
+
+                        Revisit your previous attempts and
+                        check the answer key to understand
+                        your performance.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         TECH EXPERIENCE
+    ====================================== -->
+
+    <section class="experience-section">
+
+        <div class="section">
+
+
+            <div class="experience">
+
+
+                <div class="system-visual">
+
+
+                    <div class="grid-lines"></div>
+
+
+                    <div class="tech-float tech-float-one">
+
+                        <strong>
+                            &lt;/&gt;
+                        </strong>
+
+                        <span>
+                            Web Skills
+                        </span>
+
+                    </div>
+
+
+                    <div class="tech-float tech-float-two">
+
+                        <strong>
+                            SQL
+                        </strong>
+
+                        <span>
+                            Database Practice
+                        </span>
+
+                    </div>
+
+
+                    <div class="system-window">
+
+
+                        <div class="system-window-title">
+
+                            <strong>
+                                OQ Assessment Workspace
+                            </strong>
+
+                            <span class="system-online">
+                                ONLINE
+                            </span>
+
+                        </div>
+
+
+                        <div class="system-code-card">
+
+                            <div>
+                                <span class="code-keyword">
+                                    select
+                                </span>
+                                category
+                                <span class="code-keyword">
+                                    from
+                                </span>
+                                quiz_topics;
+                            </div>
+
+                            <div>
+                                <span class="code-blue">
+                                    Java
+                                </span>
+                                →
+                                <span class="code-dark">
+                                    Programming
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="code-blue">
+                                    SQL
+                                </span>
+                                →
+                                <span class="code-dark">
+                                    Database
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="code-blue">
+                                    Aptitude
+                                </span>
+                                →
+                                <span class="code-dark">
+                                    Reasoning
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="system-bars">
+
+
+                            <div class="system-bar">
+
+                                <strong>
+                                    Quiz
+                                </strong>
+
+                                <span>
+                                    Assessment
+                                </span>
+
+                            </div>
+
+
+                            <div class="system-bar">
+
+                                <strong>
+                                    Result
+                                </strong>
+
+                                <span>
+                                    Performance
+                                </span>
+
+                            </div>
+
+
+                            <div class="system-bar">
+
+                                <strong>
+                                    Review
+                                </strong>
+
+                                <span>
+                                    Answer Key
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="experience-content">
+
+
+                    <div class="section-label">
+                        BUILT AROUND THE QUIZ
+                    </div>
+
+
+                    <h3 class="section-title">
+                        Everything stays simple.
+                    </h3>
+
+
+                    <p class="section-text"
+                       style="margin-top:18px;max-width:560px;">
+
+                        OQ keeps the journey clear from login
+                        to result, without unnecessary steps
+                        getting in the way of your assessment.
+
+                    </p>
+
+
+                    <div class="experience-list">
+
+
+                        <div class="experience-item">
+
+                            <div class="check">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Easy Category Selection
+                                </h4>
+
+                                <p>
+                                    Start with the subject you want
+                                    to practice.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="experience-item">
+
+                            <div class="check">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Structured Quiz Flow
+                                </h4>
+
+                                <p>
+                                    Move through questions with a
+                                    clear progress experience.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="experience-item">
+
+                            <div class="check">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Clear Performance Review
+                                </h4>
+
+                                <p>
+                                    Finish the quiz and review your
+                                    result and answers.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         HOW IT WORKS
+    ====================================== -->
+
+    <section class="steps-section"
+             id="how-it-works">
+
+        <div class="section">
+
+
+            <div class="section-head">
+
+                <div>
+
+                    <div class="section-label">
+                        SIMPLE PROCESS
+                    </div>
+
+                    <h3 class="section-title">
+                        How OQ Works
+                    </h3>
+
+                </div>
+
+
+                <p class="section-text">
+
+                    A straightforward flow from your account
+                    to your final result.
+
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h4>
+                        Create Your Account
+                    </h4>
+
+                    <p>
+
+                        Register with your name, email and
+                        password to access your quiz dashboard.
+
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h4>
+                        Choose a Category
+                    </h4>
+
+                    <p>
+
+                        Select a technical, web, aptitude or
+                        reasoning category and start your quiz.
+
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h4>
+                        Take & Review
+                    </h4>
+
+                    <p>
+
+                        Complete the assessment, view your
+                        result and review the answer key.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         CTA
+    ====================================== -->
+
+    <section class="cta-section">
+
+        <div class="cta">
+
+
+            <div class="cta-content">
+
+
+                <h3>
+                    Ready to Test Your Knowledge?
+                </h3>
+
+
+                <p>
+                    Start your next assessment with
+                    Online Quiz Portal.
+                </p>
+
+
+                <a href="register.html"
+                   class="cta-button">
+
+                    Create Your Account
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                OQ · Online Quiz Portal
+            </div>
+
+            <div class="footer-note">
+                Test. Learn. Prepare. · © 2026
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+</body>
+
+</html>

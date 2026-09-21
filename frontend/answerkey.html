@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Quiz Portal - Answer Key</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           ANSWER KEY HEADER
+           ===================================================== */
+
+        .answer-key-brand {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .answer-key-logo {
+
+            width: 50px;
+
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 18px
+                rgba(57, 120, 246, 0.20);
+
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+           ===================================================== */
+
+        .answer-key-title {
+
+            margin-bottom: 6px;
+
+            color: var(--text-main);
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .answer-key-subtitle {
+
+            margin-bottom: 28px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           ANSWER CONTAINER
+           ===================================================== */
+
+        #answerKeyContainer {
+
+            width: 100%;
+
+            text-align: left;
+
+            animation:
+                answerListEnter 0.55s ease both;
+
+        }
+
+
+        /* =====================================================
+           ANSWER ITEM
+           These styles also work with the divs generated
+           by the existing answerkey.js
+           ===================================================== */
+
+        #answerKeyContainer > div {
+
+            position: relative;
+
+            background: #ffffff !important;
+
+            border:
+                1px solid var(--border) !important;
+
+            border-radius: 14px !important;
+
+            padding: 18px !important;
+
+            margin-bottom: 14px !important;
+
+            box-shadow:
+                0 5px 14px
+                rgba(42, 73, 120, 0.05);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+
+        }
+
+
+        #answerKeyContainer > div:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #cbdcff !important;
+
+            box-shadow:
+                0 10px 22px
+                rgba(42, 73, 120, 0.08);
+
+        }
+
+
+        #answerKeyContainer h3 {
+
+            margin-bottom: 10px;
+
+            color: var(--primary-dark);
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+        }
+
+
+        #answerKeyContainer p {
+
+            margin: 8px 0;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            line-height: 1.55;
+
+        }
+
+
+        #answerKeyContainer p b {
+
+            color: var(--text-main);
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
+        #backBtn {
+
+            margin-top: 10px;
+
+        }
+
+
+        /* =====================================================
+           ANIMATION
+           ===================================================== */
+
+        @keyframes answerListEnter {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .result-box {
+
+                padding:
+                    30px 16px;
+
+            }
+
+
+            .answer-key-logo {
+
+                width: 46px;
+
+                height: 46px;
+
+            }
+
+
+            .answer-key-title {
+
+                font-size: 26px;
+
+            }
+
+
+            .answer-key-subtitle {
+
+                font-size: 13px;
+
+                margin-bottom: 22px;
+
+            }
+
+
+            #answerKeyContainer > div {
+
+                padding: 15px !important;
+
+                border-radius: 12px !important;
+
+            }
+
+
+            #answerKeyContainer h3 {
+
+                font-size: 15px;
+
+            }
+
+
+            #answerKeyContainer p {
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="result-container">
+
+
+        <div class="result-box">
+
+
+            <!-- =================================================
+                 OQ BRAND
+                 ================================================= -->
+
+            <div class="answer-key-brand">
+
+                <div class="answer-key-logo">
+                    OQ
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PAGE TITLE
+                 ================================================= -->
+
+            <h1 class="answer-key-title">
+                Answer Key
+            </h1>
+
+
+            <p class="answer-key-subtitle">
+                Review your answers and compare them with the correct answers.
+            </p>
+
+
+            <!-- =================================================
+                 EXISTING CONTAINER
+                 ID MUST NOT CHANGE
+                 ================================================= -->
+
+            <div id="answerKeyContainer"></div>
+
+
+            <!-- =================================================
+                 BACK BUTTON
+                 ID MUST NOT CHANGE
+                 ================================================= -->
+
+            <button
+                id="backBtn"
+                class="login-btn"
+            >
+                Back To Result
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EXISTING ANSWER KEY JAVASCRIPT -->
+
+    <script src="js/answerkey.js"></script>
+
+
+</body>
+
+</html>
