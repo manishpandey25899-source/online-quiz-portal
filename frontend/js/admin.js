@@ -30,7 +30,7 @@ async function loadAdminData() {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/admin/stats?userId=" +
+                "https://online-quiz-backend-iy84.onrender.com/api/admin/stats?userId=" +
                 userId
             );
 
@@ -86,7 +86,7 @@ async function loadQuestions() {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/questions"
+                "https://online-quiz-backend-iy84.onrender.com/api/questions"
             );
 
 
@@ -342,7 +342,7 @@ async function editQuestion(id) {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/questions/" +
+                "https://online-quiz-backend-iy84.onrender.com/api/questions/" +
                 id +
                 "?userId=" +
                 userId,
@@ -429,7 +429,7 @@ async function deleteQuestion(id) {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/questions/" +
+                "https://online-quiz-backend-iy84.onrender.com/api/questions/" +
                 id +
                 "?userId=" +
                 userId,
@@ -496,7 +496,7 @@ async function loadAttempts() {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/attempts/admin?userId=" +
+                "https://online-quiz-backend-iy84.onrender.com/api/attempts/admin?userId=" +
                 userId
             );
 
@@ -794,7 +794,7 @@ async function changeUserRole(
 
         let response =
             await fetch(
-                "http://localhost:8080/api/admin/users/" +
+                "https://online-quiz-backend-iy84.onrender.com/api/admin/users/" +
                 targetUserId +
                 "/role?userId=" +
                 currentUserId +
@@ -863,7 +863,7 @@ async function loadUsers() {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/admin/users?userId=" +
+                "https://online-quiz-backend-iy84.onrender.com/api/admin/users?userId=" +
                 currentUserId
             );
 
@@ -1243,7 +1243,7 @@ document
 
                 let response =
                     await fetch(
-                        "http://localhost:8080/api/questions?userId=" +
+                        "https://online-quiz-backend-iy84.onrender.com/api/questions?userId=" +
                         userId,
                         {
 

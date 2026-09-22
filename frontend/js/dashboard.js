@@ -34,7 +34,7 @@ async function syncPendingAttempt() {
 
         let response =
             await fetch(
-                "http://localhost:8080/api/attempts/save",
+                "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
                 {
                     method: "POST",
 
@@ -124,7 +124,7 @@ document
 
                 let response =
                     await fetch(
-                        "http://localhost:8080/api/questions/category/" +
+                        "https://online-quiz-backend-iy84.onrender.com/api/questions/category/" +
                         category
                     );
 

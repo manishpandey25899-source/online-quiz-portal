@@ -1,6 +1,6 @@
 let userId = localStorage.getItem("userId");
 
-fetch("http://localhost:8080/api/attempts/user/" + userId)
+fetch("https://online-quiz-backend-iy84.onrender.com/api/attempts/user/" + userId)
 
 .then(response => response.json())
 

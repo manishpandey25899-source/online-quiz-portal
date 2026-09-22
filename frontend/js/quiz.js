@@ -437,7 +437,7 @@ async function saveAttempt(
 
         let response =
             await fetch(
-                "http://localhost:8080/api/attempts/save",
+                "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
                 {
                     method: "POST",
 
@@ -676,7 +676,7 @@ function handlePageExit() {
 
             let beaconSent =
                 navigator.sendBeacon(
-                    "http://localhost:8080/api/attempts/save",
+                    "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
                     blob
                 );
 
