@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://comforting-gumdrop-a9db8a.netlify.app"
+})
 public class LoginController {
 
     @Autowired

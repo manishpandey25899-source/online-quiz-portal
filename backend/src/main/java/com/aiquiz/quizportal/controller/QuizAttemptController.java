@@ -14,7 +14,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/attempts")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://comforting-gumdrop-a9db8a.netlify.app"
+})
 public class QuizAttemptController {
 
     @Autowired
@@ -22,7 +26,6 @@ public class QuizAttemptController {
 
     @Autowired
     private UserRepository userRepository;
-
 
     // ==========================================
     // SAVE QUIZ ATTEMPT
@@ -35,7 +38,6 @@ public class QuizAttemptController {
         return quizAttemptRepository.save(attempt);
     }
 
-
     // ==========================================
     // GET USER'S OWN QUIZ HISTORY
     // ==========================================
@@ -46,7 +48,6 @@ public class QuizAttemptController {
 
         return quizAttemptRepository.findByUserId(userId);
     }
-
 
     // ==========================================
     // GET ALL QUIZ ATTEMPTS - ADMIN ONLY
@@ -60,7 +61,6 @@ public class QuizAttemptController {
         Optional<User> userOptional =
                 userRepository.findById(userId);
 
-
         // User not found
         if (userOptional.isEmpty()) {
 
@@ -69,11 +69,9 @@ public class QuizAttemptController {
                     .body("Access Denied");
         }
 
-
         // Get user
         User user =
                 userOptional.get();
-
 
         // Check admin role
         if (
@@ -86,11 +84,9 @@ public class QuizAttemptController {
                     .body("Access Denied. Admin only.");
         }
 
-
         // Return all attempts
         List<QuizAttempt> attempts =
                 quizAttemptRepository.findAll();
-
 
         return ResponseEntity.ok(attempts);
     }

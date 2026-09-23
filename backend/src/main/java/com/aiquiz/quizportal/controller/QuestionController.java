@@ -16,7 +16,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/questions")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://comforting-gumdrop-a9db8a.netlify.app"
+})
 public class QuestionController {
 
     @Autowired
@@ -28,7 +32,6 @@ public class QuestionController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
     // ==========================================
     // GET ALL QUESTIONS
     // ==========================================
@@ -38,7 +41,6 @@ public class QuestionController {
 
         return questionRepository.findAll();
     }
-
 
     // ==========================================
     // GET RANDOM QUESTIONS BY CATEGORY
@@ -52,7 +54,6 @@ public class QuestionController {
         return questionRepository
                 .findRandomQuestionsByCategory(id, 15);
     }
-
 
     // ==========================================
     // ADD QUESTION - ADMIN ONLY
@@ -68,7 +69,6 @@ public class QuestionController {
         Optional<User> userOptional =
                 userRepository.findById(userId);
 
-
         // User not found
         if (userOptional.isEmpty()) {
 
@@ -77,10 +77,8 @@ public class QuestionController {
                     .body("Access Denied");
         }
 
-
         User user =
                 userOptional.get();
-
 
         // Check admin role
         if (
@@ -93,7 +91,6 @@ public class QuestionController {
                     .body("Access Denied. Admin only.");
         }
 
-
         // Category validation
         if (
                 question.getCategory() == null ||
@@ -105,12 +102,10 @@ public class QuestionController {
                     .body("Category is required.");
         }
 
-
         Optional<Category> categoryOptional =
                 categoryRepository.findById(
                         question.getCategory().getId()
                 );
-
 
         if (categoryOptional.isEmpty()) {
 
@@ -119,23 +114,19 @@ public class QuestionController {
                     .body("Category Not Found.");
         }
 
-
         // Use existing category
         question.setCategory(
                 categoryOptional.get()
         );
 
-
         // Save question
         Question savedQuestion =
                 questionRepository.save(question);
-
 
         return ResponseEntity.ok(
                 savedQuestion
         );
     }
-
 
     // ==========================================
     // UPDATE QUESTION - ADMIN ONLY
@@ -152,7 +143,6 @@ public class QuestionController {
         Optional<User> userOptional =
                 userRepository.findById(userId);
 
-
         // User not found
         if (userOptional.isEmpty()) {
 
@@ -161,10 +151,8 @@ public class QuestionController {
                     .body("Access Denied");
         }
 
-
         User user =
                 userOptional.get();
-
 
         // Check admin role
         if (
@@ -177,11 +165,9 @@ public class QuestionController {
                     .body("Access Denied. Admin only.");
         }
 
-
         // Find existing question
         Optional<Question> questionOptional =
                 questionRepository.findById(id);
-
 
         if (questionOptional.isEmpty()) {
 
@@ -189,7 +175,6 @@ public class QuestionController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("Question Not Found");
         }
-
 
         // Validate category
         if (
@@ -202,12 +187,10 @@ public class QuestionController {
                     .body("Category is required.");
         }
 
-
         Optional<Category> categoryOptional =
                 categoryRepository.findById(
                         question.getCategory().getId()
                 );
-
 
         if (categoryOptional.isEmpty()) {
 
@@ -216,11 +199,9 @@ public class QuestionController {
                     .body("Category Not Found.");
         }
 
-
         // Existing question
         Question existingQuestion =
                 questionOptional.get();
-
 
         // Update question fields
         existingQuestion.setQuestionText(
@@ -247,12 +228,10 @@ public class QuestionController {
                 question.getCorrectAnswer()
         );
 
-
         // Update category
         existingQuestion.setCategory(
                 categoryOptional.get()
         );
-
 
         // Save updated question
         Question updatedQuestion =
@@ -260,12 +239,10 @@ public class QuestionController {
                         existingQuestion
                 );
 
-
         return ResponseEntity.ok(
                 updatedQuestion
         );
     }
-
 
     // ==========================================
     // DELETE QUESTION - ADMIN ONLY
@@ -281,7 +258,6 @@ public class QuestionController {
         Optional<User> userOptional =
                 userRepository.findById(userId);
 
-
         // User not found
         if (userOptional.isEmpty()) {
 
@@ -290,10 +266,8 @@ public class QuestionController {
                     .body("Access Denied");
         }
 
-
         User user =
                 userOptional.get();
-
 
         // Check admin role
         if (
@@ -306,7 +280,6 @@ public class QuestionController {
                     .body("Access Denied. Admin only.");
         }
 
-
         // Check question exists
         if (
                 !questionRepository.existsById(id)
@@ -317,10 +290,8 @@ public class QuestionController {
                     .body("Question Not Found");
         }
 
-
-        // Delete0
+        // Delete question
         questionRepository.deleteById(id);
-
 
         return ResponseEntity.ok(
                 "Question Deleted Successfully"

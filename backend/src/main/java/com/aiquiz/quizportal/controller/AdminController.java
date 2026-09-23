@@ -18,7 +18,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://comforting-gumdrop-a9db8a.netlify.app"
+})
 public class AdminController {
 
     @Autowired
@@ -29,7 +33,6 @@ public class AdminController {
 
     @Autowired
     private QuizAttemptRepository quizAttemptRepository;
-
 
     // ==========================================
     // CHECK ADMIN USER
@@ -44,10 +47,8 @@ public class AdminController {
                     .body("Access Denied");
         }
 
-
         Optional<User> userOptional =
                 userRepository.findById(userId);
-
 
         if (userOptional.isEmpty()) {
 
@@ -56,10 +57,8 @@ public class AdminController {
                     .body("Access Denied");
         }
 
-
         User user =
                 userOptional.get();
-
 
         if (
                 user.getRole() == null ||
@@ -71,10 +70,8 @@ public class AdminController {
                     .body("Access Denied. Admin only.");
         }
 
-
         return null;
     }
-
 
     // ==========================================
     // ADMIN STATISTICS
@@ -88,37 +85,30 @@ public class AdminController {
         ResponseEntity<?> accessCheck =
                 checkAdmin(userId);
 
-
         if (accessCheck != null) {
             return accessCheck;
         }
 
-
         Map<String, Long> stats =
                 new HashMap<>();
-
 
         stats.put(
                 "users",
                 userRepository.count()
         );
 
-
         stats.put(
                 "questions",
                 questionRepository.count()
         );
-
 
         stats.put(
                 "attempts",
                 quizAttemptRepository.count()
         );
 
-
         return ResponseEntity.ok(stats);
     }
-
 
     // ==========================================
     // GET ALL USERS - ADMIN ONLY
@@ -132,65 +122,53 @@ public class AdminController {
         ResponseEntity<?> accessCheck =
                 checkAdmin(userId);
 
-
         if (accessCheck != null) {
             return accessCheck;
         }
 
-
         List<User> users =
                 userRepository.findAll();
 
-
         List<Map<String, Object>> userList =
                 new ArrayList<>();
-
 
         for (User user : users) {
 
             Map<String, Object> userData =
                     new LinkedHashMap<>();
 
-
             userData.put(
                     "id",
                     user.getId()
             );
-
 
             userData.put(
                     "name",
                     user.getName()
             );
 
-
             userData.put(
                     "email",
                     user.getEmail()
             );
-
 
             userData.put(
                     "role",
                     user.getRole()
             );
 
-
             userData.put(
                     "createdAt",
                     user.getCreatedAt()
             );
 
-
             userList.add(userData);
         }
-
 
         return ResponseEntity.ok(
                 userList
         );
     }
-
 
     // ==========================================
     // UPDATE USER ROLE - ADMIN ONLY
@@ -206,11 +184,9 @@ public class AdminController {
         ResponseEntity<?> accessCheck =
                 checkAdmin(userId);
 
-
         if (accessCheck != null) {
             return accessCheck;
         }
-
 
         // Prevent admin from changing
         // their own role accidentally
@@ -222,7 +198,6 @@ public class AdminController {
                             "You cannot change your own admin role."
                     );
         }
-
 
         // Only these two roles are allowed
         if (
@@ -237,10 +212,8 @@ public class AdminController {
                     );
         }
 
-
         Optional<User> userOptional =
                 userRepository.findById(id);
-
 
         if (userOptional.isEmpty()) {
 
@@ -249,53 +222,43 @@ public class AdminController {
                     .body("User Not Found");
         }
 
-
         User user =
                 userOptional.get();
-
 
         user.setRole(
                 role.toLowerCase()
         );
 
-
         User updatedUser =
                 userRepository.save(user);
 
-
         Map<String, Object> response =
                 new LinkedHashMap<>();
-
 
         response.put(
                 "id",
                 updatedUser.getId()
         );
 
-
         response.put(
                 "name",
                 updatedUser.getName()
         );
-
 
         response.put(
                 "email",
                 updatedUser.getEmail()
         );
 
-
         response.put(
                 "role",
                 updatedUser.getRole()
         );
 
-
         response.put(
                 "createdAt",
                 updatedUser.getCreatedAt()
         );
-
 
         return ResponseEntity.ok(
                 response
