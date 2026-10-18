@@ -12,24 +12,17 @@
 <body>
 
     <div class="container">
-
         <div class="login-box">
 
             <!-- OQ BRAND -->
             <div
                 class="brand"
-                style="
-                    justify-content:center;
-                    margin-bottom:28px;
-                "
+                style="justify-content:center; margin-bottom:28px;"
             >
-
                 <div class="brand-logo">
                     OQ
                 </div>
-
             </div>
-
 
             <!-- PORTAL TITLE -->
             <h1
@@ -43,7 +36,6 @@
                 Online Quiz Portal
             </h1>
 
-
             <!-- LOGIN SUBTITLE -->
             <p
                 style="
@@ -56,16 +48,12 @@
                 Login to Continue
             </p>
 
-
             <!-- LOGIN FORM -->
             <form id="loginForm">
 
                 <!-- EMAIL -->
                 <div class="input-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
+                    <label for="email">Email Address</label>
 
                     <input
                         type="email"
@@ -73,26 +61,77 @@
                         placeholder="Enter your email"
                         required
                     >
-
                 </div>
-
 
                 <!-- PASSWORD -->
                 <div class="input-group">
+                    <label for="password">Password</label>
 
-                    <label for="password">
-                        Password
-                    </label>
+                    <div style="position:relative; width:100%;">
 
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                    >
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                            style="
+                                width:100%;
+                                box-sizing:border-box;
+                                padding-right:48px;
+                            "
+                        >
 
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            title="Show password"
+                            style="
+                                position:absolute;
+                                right:10px;
+                                top:50%;
+                                transform:translateY(-50%);
+                                border:none;
+                                background:transparent;
+                                cursor:pointer;
+                                font-size:20px;
+                                padding:4px;
+                            "
+                        >👁️</button>
+
+                    </div>
                 </div>
 
+                <!-- FORGOT PASSWORD -->
+                <div
+                    style="
+                        display:flex !important;
+                        justify-content:flex-end !important;
+                        visibility:visible !important;
+                        opacity:1 !important;
+                        width:100%;
+                        margin:0 0 18px 0;
+                    "
+                >
+                    <button
+                        type="button"
+                        id="forgotPasswordLink"
+                        style="
+                            display:inline-block !important;
+                            visibility:visible !important;
+                            opacity:1 !important;
+                            color:#2563eb !important;
+                            background:transparent !important;
+                            border:none !important;
+                            padding:6px 0 !important;
+                            margin:0 !important;
+                            font-size:14px !important;
+                            font-weight:600 !important;
+                            cursor:pointer !important;
+                            text-decoration:underline !important;
+                        "
+                    >Forgot Password?</button>
+                </div>
 
                 <!-- LOGIN BUTTON -->
                 <button
@@ -104,25 +143,69 @@
 
             </form>
 
-
             <!-- REGISTER LINK -->
             <div class="register-link">
-
                 Don't have an account?
-
-                <a href="register.html">
-                    Register
-                </a>
-
+                <a href="register.html">Register</a>
             </div>
 
         </div>
-
     </div>
 
-
-    <!-- LOGIN JAVASCRIPT -->
+    <!-- EXISTING LOGIN JAVASCRIPT -->
     <script src="js/login.js"></script>
+
+    <!-- SHOW PASSWORD AND FORGOT PASSWORD MESSAGE -->
+    <script>
+        (function () {
+
+            const passwordField =
+                document.getElementById("password");
+
+            const toggleButton =
+                document.getElementById("togglePassword");
+
+            const forgotButton =
+                document.getElementById("forgotPasswordLink");
+
+            toggleButton.addEventListener("click", function () {
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleButton.innerText = "🙈";
+                    toggleButton.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+                    toggleButton.setAttribute(
+                        "title",
+                        "Hide password"
+                    );
+                } else {
+                    passwordField.type = "password";
+                    toggleButton.innerText = "👁️";
+                    toggleButton.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+                    toggleButton.setAttribute(
+                        "title",
+                        "Show password"
+                    );
+                }
+
+            });
+
+            forgotButton.addEventListener("click", function () {
+
+                alert(
+                    "Forgot Password feature is not configured yet. Please contact the administrator."
+                );
+
+            });
+
+        })();
+    </script>
 
 </body>
 </html>
