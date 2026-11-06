@@ -154,6 +154,7 @@
     </div>
 
     <!-- EXISTING LOGIN JAVASCRIPT -->
+    <script src="js/api-config.js"></script>
     <script src="js/login.js"></script>
 
     <!-- SHOW PASSWORD AND FORGOT PASSWORD MESSAGE -->
@@ -198,13 +199,7 @@
             });
 
             forgotButton.addEventListener("click", function () {
-
-                alert(
-                    "Password Reset Unavailable\n\n" +
-                    "Password reset is currently unavailable. " +
-                    "Please contact the administrator for assistance."
-                );
-
+                window.location.href = "forgot-password.html";
             });
 
         })();

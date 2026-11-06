@@ -18,7 +18,8 @@ backend/src/main/resources/application.properties
 .env.*
 
 # Database files and local data
-database/
+database/*
+!database/migrations/
 
 # OS files
 .DS_Store

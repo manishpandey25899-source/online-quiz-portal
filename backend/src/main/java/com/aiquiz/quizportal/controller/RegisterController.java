@@ -6,6 +6,7 @@ import com.aiquiz.quizportal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.regex.Pattern;
@@ -24,6 +25,9 @@ public class RegisterController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Name: only English letters and spaces, 2 to 50 characters
     private static final Pattern NAME_PATTERN =
@@ -119,7 +123,7 @@ public class RegisterController {
         }
 
         // -------------------------
-        // FORCE NORMAL USER ROLE
+        // FORCE NORMAL USER ROLE & SECURE BCRYPT PASSWORD
         // -------------------------
 
         user.setName(name);
@@ -128,6 +132,7 @@ public class RegisterController {
         // New registrations are always students.
         // User cannot register himself as admin.
         user.setRole("student");
+        user.setPassword(passwordEncoder.encode(password));
 
         // -------------------------
         // SAVE USER

@@ -291,7 +291,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     try {
 
         let response = await fetch(
-            "https://online-quiz-backend-iy84.onrender.com/api/auth/register",
+            (typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com") + "/api/auth/register",
             {
                 method: "POST",
 

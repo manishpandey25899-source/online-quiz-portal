@@ -191,7 +191,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     try {
 
         let response = await fetch(
-            "https://online-quiz-backend-iy84.onrender.com/api/auth/login",
+            (typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com") + "/api/auth/login",
             {
                 method: "POST",
                 headers: {
@@ -257,6 +257,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         if (user && user.id) {
 
+            if (user.token) {
+                localStorage.setItem("authToken", user.token);
+            }
             localStorage.setItem("userId", user.id);
             localStorage.setItem("userName", user.name);
             localStorage.setItem("userRole", user.role);

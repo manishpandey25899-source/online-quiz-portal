@@ -1,16 +1,16 @@
 package com.aiquiz.quizportal.controller;
 
+import com.aiquiz.quizportal.config.UserPrincipal;
 import com.aiquiz.quizportal.entity.QuizAttempt;
-import com.aiquiz.quizportal.entity.User;
 import com.aiquiz.quizportal.repository.QuizAttemptRepository;
-import com.aiquiz.quizportal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/attempts")
@@ -24,70 +24,85 @@ public class QuizAttemptController {
     @Autowired
     private QuizAttemptRepository quizAttemptRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     // ==========================================
-    // SAVE QUIZ ATTEMPT
+    // SAVE QUIZ ATTEMPT (AUTHENTICATED)
+    // Student identity is strictly derived from the authenticated principal
     // ==========================================
 
     @PostMapping("/save")
-    public QuizAttempt saveAttempt(
-            @RequestBody QuizAttempt attempt) {
+    public ResponseEntity<?> saveAttempt(
+            @RequestBody QuizAttempt attempt,
+            @AuthenticationPrincipal UserPrincipal principal) {
 
-        return quizAttemptRepository.save(attempt);
+        if (principal == null) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Authentication required to submit quiz attempt"));
+        }
+
+        if (attempt == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", "Quiz attempt data is required"));
+        }
+
+        // Enforce user ID from verified server-side principal to prevent spoofing
+        attempt.setUserId(principal.getId());
+
+        QuizAttempt saved = quizAttemptRepository.save(attempt);
+        return ResponseEntity.ok(saved);
     }
 
     // ==========================================
-    // GET USER'S OWN QUIZ HISTORY
+    // GET USER'S OWN QUIZ HISTORY (AUTHENTICATED)
+    // Users can only view their own history unless they are an admin
     // ==========================================
 
     @GetMapping("/user/{userId}")
-    public List<QuizAttempt> getUserAttempts(
-            @PathVariable Integer userId) {
+    public ResponseEntity<?> getUserAttempts(
+            @PathVariable Integer userId,
+            @AuthenticationPrincipal UserPrincipal principal) {
 
-        return quizAttemptRepository.findByUserId(userId);
+        if (principal == null) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Authentication required"));
+        }
+
+        boolean isAdmin = principal.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equalsIgnoreCase("ROLE_ADMIN"));
+
+        if (!isAdmin && !principal.getId().equals(userId)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("message", "Access Denied: You can only view your own quiz history"));
+        }
+
+        List<QuizAttempt> attempts = quizAttemptRepository.findByUserId(userId);
+        return ResponseEntity.ok(attempts);
     }
 
     // ==========================================
     // GET ALL QUIZ ATTEMPTS - ADMIN ONLY
+    // Handled by Spring Security role check, with fallback check
     // ==========================================
 
     @GetMapping("/admin")
     public ResponseEntity<?> getAllAttemptsForAdmin(
-            @RequestParam Integer userId) {
+            @RequestParam(required = false) Integer userId,
+            @AuthenticationPrincipal UserPrincipal principal) {
 
-        // Find user
-        Optional<User> userOptional =
-                userRepository.findById(userId);
-
-        // User not found
-        if (userOptional.isEmpty()) {
-
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .body("Access Denied");
+        if (principal != null) {
+            boolean isAdmin = principal.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equalsIgnoreCase("ROLE_ADMIN"));
+            if (!isAdmin) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("message", "Access Denied. Admin only."));
+            }
         }
 
-        // Get user
-        User user =
-                userOptional.get();
-
-        // Check admin role
-        if (
-                user.getRole() == null ||
-                        !user.getRole().equalsIgnoreCase("admin")
-        ) {
-
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .body("Access Denied. Admin only.");
-        }
-
-        // Return all attempts
-        List<QuizAttempt> attempts =
-                quizAttemptRepository.findAll();
-
+        List<QuizAttempt> attempts = quizAttemptRepository.findAll();
         return ResponseEntity.ok(attempts);
     }
 }

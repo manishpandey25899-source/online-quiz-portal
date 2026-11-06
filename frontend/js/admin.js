@@ -1,3 +1,21 @@
+
+// ==========================================
+// SECURE ADMIN API CLIENT
+// Attaches Bearer JWT token to all requests
+// ==========================================
+function adminFetch(url, options = {}) {
+    let token = localStorage.getItem("authToken");
+    let headers = Object.assign({}, options.headers || {});
+    if (token) {
+        headers["Authorization"] = "Bearer " + token;
+    }
+    let baseUrl = typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com";
+    if (url.startsWith("https://online-quiz-backend-iy84.onrender.com")) {
+        url = url.replace("https://online-quiz-backend-iy84.onrender.com", baseUrl);
+    }
+    return adminFetch(url, Object.assign({}, options, { headers }));
+}
+
 // ==========================================
 // ADMIN ACCESS CHECK
 // ==========================================
@@ -29,7 +47,7 @@ async function loadAdminData() {
 
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/admin/stats?userId=" +
                 userId
             );
@@ -85,7 +103,7 @@ async function loadQuestions() {
     try {
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/questions"
             );
 
@@ -341,7 +359,7 @@ async function editQuestion(id) {
     try {
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/questions/" +
                 id +
                 "?userId=" +
@@ -428,7 +446,7 @@ async function deleteQuestion(id) {
     try {
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/questions/" +
                 id +
                 "?userId=" +
@@ -495,7 +513,7 @@ async function loadAttempts() {
 
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/attempts/admin?userId=" +
                 userId
             );
@@ -793,7 +811,7 @@ async function changeUserRole(
     try {
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/admin/users/" +
                 targetUserId +
                 "/role?userId=" +
@@ -862,7 +880,7 @@ async function loadUsers() {
 
 
         let response =
-            await fetch(
+            await adminFetch(
                 "https://online-quiz-backend-iy84.onrender.com/api/admin/users?userId=" +
                 currentUserId
             );
@@ -1242,7 +1260,7 @@ document
             try {
 
                 let response =
-                    await fetch(
+                    await adminFetch(
                         "https://online-quiz-backend-iy84.onrender.com/api/questions?userId=" +
                         userId,
                         {

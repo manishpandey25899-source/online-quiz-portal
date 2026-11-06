@@ -34,13 +34,14 @@ async function syncPendingAttempt() {
 
         let response =
             await fetch(
-                "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
+                (typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com") + "/api/attempts/save",
                 {
                     method: "POST",
 
                     headers: {
-                        "Content-Type": "application/json"
-                    },
+                    "Content-Type": "application/json",
+                    ...(localStorage.getItem("authToken") ? { "Authorization": "Bearer " + localStorage.getItem("authToken") } : {})
+                },
 
                     body: JSON.stringify(attemptData)
                 }
@@ -124,7 +125,7 @@ document
 
                 let response =
                     await fetch(
-                        "https://online-quiz-backend-iy84.onrender.com/api/questions/category/" +
+                        (typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com") + "/api/questions/category/" +
                         category
                     );
 
