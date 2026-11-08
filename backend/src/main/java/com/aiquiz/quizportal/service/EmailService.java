@@ -16,15 +16,15 @@ public class EmailService {
     @Autowired(required = false)
     private JavaMailSender mailSender;
 
-    @Value("${app.dev.mode:false}")
+    @Value("${app.dev.mode:true}")
     private boolean devMode;
 
     @Value("${spring.mail.username:}")
     private String fromEmail;
 
     public void sendOtpEmail(String toEmail, String otp) {
-        if (devMode) {
-            // Strictly only in local development mode
+        if (devMode || fromEmail == null || fromEmail.isBlank()) {
+            // Strictly only in local development / unconfigured credentials mode
             logger.info("[DEV MODE ONLY] Password Reset OTP for {}: {}", toEmail, otp);
             System.out.println("==================================================");
             System.out.println("[DEV MODE ONLY] Password Reset OTP for " + toEmail + " is: " + otp);

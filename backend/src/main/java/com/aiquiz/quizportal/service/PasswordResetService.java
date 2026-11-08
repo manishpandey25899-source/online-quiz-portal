@@ -103,7 +103,7 @@ public class PasswordResetService {
         emailService.sendOtpEmail(cleanEmail, otp);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = IllegalArgumentException.class)
     public String verifyOtp(String email, String rawOtp) {
         String cleanEmail = email.trim().toLowerCase();
 
@@ -150,7 +150,7 @@ public class PasswordResetService {
         return resetToken;
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = IllegalArgumentException.class)
     public void resetPassword(String email, String resetToken, String newPassword) {
         String cleanEmail = email.trim().toLowerCase();
 
