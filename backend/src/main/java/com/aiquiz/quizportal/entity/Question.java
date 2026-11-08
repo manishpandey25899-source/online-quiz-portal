@@ -28,6 +28,9 @@ public class Question {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    @Column(name = "explanation", columnDefinition = "TEXT")
+    private String explanation;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -89,6 +92,14 @@ public class Question {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public Category getCategory() {

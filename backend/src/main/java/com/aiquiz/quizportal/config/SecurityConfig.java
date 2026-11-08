@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -70,6 +69,9 @@ public class SecurityConfig {
                 // Authenticated student / user endpoints
                 .requestMatchers(HttpMethod.POST, "/api/attempts/save").authenticated()
                 .requestMatchers("/api/attempts/user/**").authenticated()
+                .requestMatchers("/api/bookmarks/**").authenticated()
+                .requestMatchers("/api/daily-challenge/**").authenticated()
+                .requestMatchers("/api/practice/**").authenticated()
 
                 // Any other request requires authentication
                 .anyRequest().authenticated()
