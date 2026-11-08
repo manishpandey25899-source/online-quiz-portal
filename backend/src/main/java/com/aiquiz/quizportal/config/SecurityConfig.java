@@ -72,6 +72,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/bookmarks/**").authenticated()
                 .requestMatchers("/api/daily-challenge/**").authenticated()
                 .requestMatchers("/api/practice/**").authenticated()
+                .requestMatchers("/api/leaderboard/**").authenticated()
+                .requestMatchers("/api/analytics/**").authenticated()
+                .requestMatchers("/api/placement/**").authenticated()
+                .requestMatchers("/api/achievements/**").authenticated()
 
                 // Any other request requires authentication
                 .anyRequest().authenticated()
