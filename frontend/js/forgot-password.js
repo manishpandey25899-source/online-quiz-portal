@@ -61,10 +61,11 @@
     setupPasswordToggle("newPassword", "toggleNewPassword");
     setupPasswordToggle("confirmNewPassword", "toggleConfirmPassword");
 
-    // Start 10-Minute Countdown
+    // Start 15-Minute Countdown
     function startTimer(durationSeconds) {
         clearInterval(countdownInterval);
         let remaining = durationSeconds;
+        countdownTimer.style.color = "#667085";
 
         function updateDisplay() {
             const minutes = Math.floor(remaining / 60);
@@ -123,7 +124,7 @@
                 displayedEmail.innerText = currentEmail;
 
                 showNotification("OTP sent successfully! Please check your inbox or spam folder.", "success");
-                startTimer(600); // 10 minutes
+                startTimer(900); // 15 minutes
             } else {
                 showNotification(data.message || "Failed to send OTP. Please try again.", "error");
             }
@@ -154,7 +155,7 @@
 
             if (response.ok) {
                 showNotification("A new OTP has been sent to your email.", "success");
-                startTimer(600);
+                startTimer(900); // 15 minutes
             } else {
                 showNotification(data.message || "Failed to resend OTP.", "error");
             }

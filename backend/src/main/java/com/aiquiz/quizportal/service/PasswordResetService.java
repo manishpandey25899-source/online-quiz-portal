@@ -27,7 +27,7 @@ public class PasswordResetService {
     private static final int MAX_EMAIL_REQUESTS_15M = 3;
     private static final int MAX_IP_REQUESTS_15M = 5;
     private static final int MAX_OTP_ATTEMPTS = 5;
-    private static final int OTP_VALIDITY_MINUTES = 10;
+    private static final int OTP_VALIDITY_MINUTES = 15;
     private static final int RESET_TOKEN_VALIDITY_MINUTES = 5;
 
     private static final Pattern PASSWORD_PATTERN =

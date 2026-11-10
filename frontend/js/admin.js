@@ -13,7 +13,7 @@ function adminFetch(url, options = {}) {
     if (url.startsWith("https://online-quiz-backend-iy84.onrender.com")) {
         url = url.replace("https://online-quiz-backend-iy84.onrender.com", baseUrl);
     }
-    return adminFetch(url, Object.assign({}, options, { headers }));
+    return fetch(url, Object.assign({}, options, { headers }));
 }
 
 // ==========================================

@@ -45,7 +45,9 @@ public class PasswordResetController {
         } catch (Exception ex) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", "An error occurred while processing your request. Please try again."));
+                    .body(Map.of("message", (ex.getMessage() != null && !ex.getMessage().isBlank())
+                            ? ex.getMessage()
+                            : "An error occurred while processing your request. Please try again."));
         }
     }
 

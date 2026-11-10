@@ -1,1104 +1,1101 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Online Quiz Portal - Dashboard</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Portal - Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-
-        /* =====================================================
-           DASHBOARD HEADER
-           ===================================================== */
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-
-            padding-bottom: 26px;
-            margin-bottom: 28px;
-
-            border-bottom: 1px solid var(--border-light);
+        /* DASHBOARD MASTER LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 24px;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
+        /* SIDEBAR */
+        .dashboard-sidebar {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem 1.25rem;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: calc(100vh - 4rem);
+            position: sticky;
+            top: 2rem;
+        }
 
-        .dashboard-brand {
+        .sidebar-brand {
             display: flex;
             align-items: center;
             gap: 12px;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
 
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 1.5rem;
+            list-style: none;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            width: 100%;
             text-align: left;
         }
 
+        .sidebar-link svg {
+            width: 19px;
+            height: 19px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            flex-shrink: 0;
+        }
 
-        .dashboard-brand-logo {
-            width: 48px;
-            height: 48px;
+        .sidebar-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
 
+        .sidebar-link.active {
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .sidebar-link.active svg {
+            stroke: var(--primary);
+        }
+
+        .sidebar-footer {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* MAIN CONTENT AREA */
+        .dashboard-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            min-width: 0;
+        }
+
+        /* HEADER */
+        .dashboard-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 1.25rem 1.75rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .welcome-badge-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .welcome-badge-group h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-badge-group p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .header-user-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 14px 6px 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+        }
+
+        .user-avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            border-radius: 14px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                );
-
-            color: white;
-
-            font-size: 19px;
-            font-weight: 800;
-
-            box-shadow:
-                0 8px 18px rgba(57, 120, 246, 0.20);
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
+        /* BENTO GRID */
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
 
-        .dashboard-brand-text {
+        .bento-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .bento-card-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* WIDGET 1: DAILY STREAK */
+        .streak-highlight {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin: 6px 0;
+        }
+
+        .streak-points-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--mint-dark);
+            background: var(--mint-soft);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            margin-top: 4px;
+        }
+
+        /* WIDGET 2: GLOBAL STANDING */
+        .globe-standing-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+
+        .standing-rank-badge {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.02em;
+            margin-top: 8px;
+        }
+
+        .standing-subtext {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* WIDGET 3: TODAY'S TOPICS */
+        .category-grid-styled {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .topic-card {
+            background: #FBFDFB;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 98px;
+            user-select: none;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 6px 18px rgba(57, 120, 246, 0.12);
+            background: #FFFFFF;
+        }
+
+        .topic-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(57, 120, 246, 0.08) 0%, rgba(107, 99, 232, 0.05) 100%);
+            box-shadow: 0 8px 22px rgba(57, 120, 246, 0.16);
+        }
+
+        .topic-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            transition: all var(--transition-fast);
+        }
+
+        .topic-card.active .topic-icon {
+            background: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .topic-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.25;
+        }
+
+        /* QUIZ ACTION BAR */
+        .quiz-launcher-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(57, 120, 246, 0.05) 0%, rgba(101, 214, 176, 0.05) 100%);
+            border: 1px solid rgba(57, 120, 246, 0.18);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            margin-top: 1.5rem;
+            gap: 16px;
+        }
+
+        .quiz-meta-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .quiz-meta-item {
             display: flex;
             flex-direction: column;
         }
 
-
-        .dashboard-brand-text strong {
-            font-size: 20px;
-            color: var(--text-main);
-            line-height: 1.1;
-        }
-
-
-        .dashboard-brand-text span {
-            margin-top: 4px;
-
-            font-size: 12px;
+        .quiz-meta-item span {
+            font-size: 0.75rem;
             color: var(--text-secondary);
-        }
-
-
-        .dashboard-user {
-            padding: 9px 14px;
-
-            border-radius: 999px;
-
-            background: var(--primary-soft);
-
-            color: var(--primary-dark);
-
-            font-size: 13px;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
-
-        /* =====================================================
-           WELCOME SECTION
-           ===================================================== */
-
-        .welcome-section {
-            padding: 28px;
-
-            margin-bottom: 30px;
-
-            border-radius: 16px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f5f9ff,
-                    #f6f4ff
-                );
-
-            border: 1px solid var(--border-light);
-
-            text-align: left;
-
-            position: relative;
-            overflow: hidden;
-        }
-
-
-        .welcome-section::after {
-            content: "";
-
-            position: absolute;
-
-            width: 170px;
-            height: 170px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(57, 120, 246, 0.08);
-
-            right: -55px;
-            top: -70px;
-
-            pointer-events: none;
-        }
-
-
-        .welcome-section h1 {
-            margin: 0 0 8px 0;
-
-            font-size: 32px;
+        .quiz-meta-item strong {
+            font-size: 1rem;
+            color: var(--text-main);
             font-weight: 800;
-
-            color: var(--text-main);
-
-            letter-spacing: -0.7px;
         }
 
-
-        .welcome-section p {
-            margin: 0;
-
-            color: var(--text-secondary);
-
-            font-size: 15px;
+        /* WIDGET 4: QUIZ SCHEDULER */
+        .scheduler-card {
+            background: #151D28;
+            color: #FFFFFF;
+            border-color: #243042;
         }
 
-
-        /* =====================================================
-           QUIZ SECTION
-           ===================================================== */
-
-        .quiz-section-heading {
-            text-align: left;
-
-            margin-bottom: 16px;
+        .scheduler-card .bento-card-title {
+            color: #FFFFFF;
         }
 
-
-        .quiz-section-heading h3 {
-            margin-bottom: 5px;
-
-            font-size: 21px;
-            color: var(--text-main);
-        }
-
-
-        .quiz-section-heading p {
-            color: var(--text-secondary);
-
-            font-size: 13px;
-        }
-
-
-        /* =====================================================
-           CATEGORY GRID
-           ===================================================== */
-
-        .category-grid {
+        /* WIDGET 5: RECENT PERFORMANCE */
+        .performance-summary-row {
             display: grid;
-
-            grid-template-columns:
-                repeat(4, minmax(0, 1fr));
-
-            gap: 14px;
-
-            margin-bottom: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
-
-        .category-card {
+        .perf-stat-pill {
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
-
-            border-radius: 14px;
-
-            background: white;
-
-            padding: 18px 14px;
-
-            min-height: 110px;
-
+            border-radius: var(--radius-md);
+            padding: 12px;
             text-align: left;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease;
         }
 
-
-        .category-card:hover {
-            transform: translateY(-4px);
-
-            border-color: #bfd5ff;
-
-            box-shadow:
-                0 12px 25px rgba(42, 73, 120, 0.10);
-
-            background: #fbfdff;
+        .perf-stat-pill span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
         }
 
-
-        .category-card.active {
-            border-color: var(--primary);
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f1f6ff,
-                    #f8f7ff
-                );
-
-            box-shadow:
-                0 10px 22px rgba(57, 120, 246, 0.13);
+        .perf-stat-pill strong {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            font-weight: 800;
         }
 
-
-        .category-number {
-            width: 30px;
-            height: 30px;
-
-            display: flex;
+        /* MODAL STYLES (for Profile / Settings / Leaderboard) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(32, 43, 60, 0.45);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            display: none;
             align-items: center;
             justify-content: center;
-
-            margin-bottom: 11px;
-
-            border-radius: 9px;
-
-            background: var(--primary-soft);
-
-            color: var(--primary-dark);
-
-            font-size: 12px;
-            font-weight: 800;
+            padding: 20px;
         }
 
-
-        .category-card.active .category-number {
-            background: var(--primary);
-
-            color: white;
+        .modal-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(32, 43, 60, 0.2);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
         }
 
-
-        .category-card h4 {
-            margin: 0;
-
-            font-size: 15px;
-
-            color: var(--text-main);
-
-            line-height: 1.35;
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-
-        /* =====================================================
-           EXISTING CATEGORY SELECT
-           ===================================================== */
-
-        .category-section {
-            margin-bottom: 24px;
-        }
-
-
-        .category-section label {
-            display: block;
-
-            text-align: left;
-
-            margin-bottom: 8px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            color: var(--text-secondary);
-        }
-
-
-        .category-section select {
-            background: white;
-
-            cursor: pointer;
-
-            font-weight: 600;
-        }
-
-
-        /* =====================================================
-           QUIZ INFO CARDS
-           ===================================================== */
-
-        .quiz-info {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 14px;
-
-            margin-bottom: 24px;
-
-            padding: 0;
-
-            background: transparent;
-
-            border: none;
-        }
-
-
-        .quiz-stat {
-            padding: 17px;
-
-            border:
-                1px solid var(--border-light);
-
-            background: #fbfdff;
-
-            border-radius: 13px;
-
-            text-align: left;
-        }
-
-
-        .quiz-stat-label {
-            display: block;
-
-            margin-bottom: 5px;
-
-            color: var(--text-secondary);
-
-            font-size: 12px;
-
-            font-weight: 600;
-        }
-
-
-        .quiz-stat-value {
-            color: var(--text-main);
-
-            font-size: 18px;
-
-            font-weight: 800;
-        }
-
-
-        /* =====================================================
-           DASHBOARD ACTIONS
-           ===================================================== */
-
-        .dashboard-actions {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(0, 1fr));
-
-            gap: 12px;
-
-            margin-top: 14px;
-        }
-
-
-        .dashboard-actions .login-btn,
-        .dashboard-actions .logout-btn {
-            margin-top: 0;
-        }
-
-
-        /* =====================================================
-           ADMIN BUTTON
-           ===================================================== */
-
-        #adminBtn {
-            display: none;
-        }
-
-
-        /* =====================================================
-           MOBILE
-           ===================================================== */
-
-        @media (max-width: 900px) {
-
-            .category-grid {
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 1100px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
             }
 
+            .dashboard-sidebar {
+                height: auto;
+                position: static;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .sidebar-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-top: 0;
+            }
+
+            .sidebar-footer {
+                padding-top: 0;
+                border-top: none;
+                flex-direction: row;
+            }
+
+            .category-grid-styled {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
+        @media (max-width: 768px) {
+            .category-grid-styled {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-        @media (max-width: 650px) {
-
-            .dashboard-header {
-                align-items: flex-start;
-
+            .quiz-launcher-bar {
                 flex-direction: column;
-
-                padding-bottom: 20px;
+                align-items: stretch;
             }
 
-
-            .dashboard-user {
-                align-self: flex-start;
+            .performance-summary-row {
+                grid-template-columns: 1fr;
             }
-
-
-            .welcome-section {
-                padding: 22px 18px;
-            }
-
-
-            .welcome-section h1 {
-                font-size: 27px;
-            }
-
-
-            .category-grid {
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-
-                gap: 10px;
-            }
-
-
-            .category-card {
-                min-height: 105px;
-
-                padding: 15px 12px;
-            }
-
-
-            .quiz-info {
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .dashboard-actions {
-                grid-template-columns:
-                    1fr;
-            }
-
         }
-
-
-        @media (max-width: 390px) {
-
-            .dashboard-brand-logo {
-                width: 43px;
-                height: 43px;
-
-                border-radius: 12px;
-            }
-
-
-            .dashboard-brand-text strong {
-                font-size: 18px;
-            }
-
-
-            .category-grid {
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .category-card {
-                min-height: auto;
-            }
-
-        }
-
     </style>
-
 </head>
-
-
 <body>
 
+    <div class="dashboard-container" style="padding: 1.5rem;">
+        <div class="dashboard-layout">
 
-    <div class="dashboard-container">
-
-
-        <div class="dashboard-box">
-
-
-            <!-- =================================================
-                 HEADER
-                 ================================================= -->
-
-            <div class="dashboard-header">
-
-                <div class="dashboard-brand">
-
-                    <div class="dashboard-brand-logo">
-                        OQ
+            <!-- =========================================================
+                 MODERN LEFT SIDEBAR
+                 Preserves all navigation destinations
+                 ========================================================= -->
+            <aside class="dashboard-sidebar">
+                <div>
+                    <!-- Brand -->
+                    <div class="sidebar-brand">
+                        <div class="brand-logo">OQ</div>
+                        <div class="brand-text">
+                            <h1>QuizPortal</h1>
+                            <p>Pro Assessment</p>
+                        </div>
                     </div>
 
-                    <div class="dashboard-brand-text">
+                    <!-- Sidebar Navigation -->
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="dashboard.html" class="sidebar-link active">
+                                <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#quiz-section" class="sidebar-link" onclick="document.getElementById('quiz-section').scrollIntoView({behavior: 'smooth'})">
+                                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Quizzes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <button type="button" class="sidebar-link" onclick="openLeaderboardModal()">
+                                <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                                <span>Leaderboards</span>
+                            </button>
+                        </li>
+                        <li>
+                            <a href="history.html" class="sidebar-link">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span>History</span>
+                            </a>
+                        </li>
+                        <li>
+                            <button type="button" class="sidebar-link" onclick="openProfileModal()">
+                                <svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <span>Profile</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="sidebar-link" onclick="openSettingsModal()">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                <span>Settings</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
 
-                        <strong>
-                            Online Quiz Portal
-                        </strong>
+                <!-- Footer / Admin & Logout -->
+                <div class="sidebar-footer">
+                    <button id="adminBtn" class="login-btn" onclick="window.location.href='admin.html'" style="display:none; padding:10px 14px; font-size:0.88rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Admin Panel</span>
+                    </button>
+                    <button id="logoutBtn" class="logout-btn" style="padding:10px 14px; font-size:0.88rem;">
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </aside>
 
-                        <span>
-                            Test. Learn. Prepare.
-                        </span>
+            <!-- =========================================================
+                 MAIN CONTENT AREA WITH BENTO GRID
+                 ========================================================= -->
+            <main class="dashboard-content">
 
+                <!-- HEADER -->
+                <div class="dashboard-header-bar">
+                    <div class="welcome-badge-group">
+                        <span class="badge-pill blue" style="width:fit-content;">Continuous Learning</span>
+                        <h1>Welcome Back, <span id="headerUserName">Student</span>!</h1>
+                        <p>Select a domain topic to test your knowledge with real-time feedback.</p>
+                    </div>
+                    <div class="header-user-badge">
+                        <div class="user-avatar-circle" id="userAvatar">S</div>
+                        <div style="text-align: left;">
+                            <strong id="dashboardUser" style="display:block; font-size:0.88rem; color:var(--text-main);">Student</strong>
+                            <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Active Session</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENTO GRID (5 MASTER WIDGETS) -->
+                <div class="bento-container">
+
+                    <!-- =====================================================
+                         WIDGET 1: DAILY QUIZ STREAK (col-7)
+                         ===================================================== -->
+                    <div class="bento-card col-7 tilt-card">
+                        <div class="bento-card-header">
+                            <div class="bento-card-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#65D6B0" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                <span>Daily Quiz Streak</span>
+                            </div>
+                            <span class="badge-pill mint">Active Habit</span>
+                        </div>
+
+                        <div>
+                            <div class="streak-highlight">
+                                <span data-counter="15">15</span> DAYS STREAK! <span style="color:var(--mint-dark); font-size:1.1rem; font-weight:700;">(+2)</span>
+                            </div>
+                            <div class="streak-points-badge">
+                                <span>⚡ <span data-counter="980">980</span> POINTS ACCUMULATED</span>
+                            </div>
+                        </div>
+
+                        <!-- Vertical activity bar chart -->
+                        <div class="streak-bar-chart">
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 45%;"></div>
+                                <span class="streak-day-label">Mon</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 65%;"></div>
+                                <span class="streak-day-label">Tue</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 50%;"></div>
+                                <span class="streak-day-label">Wed</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 85%;"></div>
+                                <span class="streak-day-label">Thu</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 70%;"></div>
+                                <span class="streak-day-label">Fri</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 95%;"></div>
+                                <span class="streak-day-label">Sat</span>
+                            </div>
+                            <div class="streak-col">
+                                <div class="streak-bar-fill" style="height: 100%;"></div>
+                                <span class="streak-day-label" style="color:var(--primary); font-weight:800;">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         WIDGET 2: GLOBAL STANDING (col-5)
+                         3D Interactive Digital Rotating Globe
+                         ===================================================== -->
+                    <div class="bento-card col-5 tilt-card">
+                        <div class="bento-card-header">
+                            <div class="bento-card-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3978F6" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                <span>Global Standing</span>
+                            </div>
+                            <span class="badge-pill blue">Worldwide</span>
+                        </div>
+
+                        <div class="globe-standing-box">
+                            <canvas id="globeCanvas" width="200" height="180"></canvas>
+                            <div class="standing-rank-badge">
+                                Rank: #1,200 <span style="color:var(--secondary); font-size:1rem; font-weight:700;">(Top 1%)</span>
+                            </div>
+                            <p class="standing-subtext">Competitive percentile across all registered student assessments</p>
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         WIDGET 3: TODAY'S TOPICS GRID (col-12)
+                         All 11 Categories with synced selection & Start Quiz
+                         ===================================================== -->
+                    <div id="quiz-section" class="bento-card col-12">
+                        <div class="bento-card-header">
+                            <div>
+                                <div class="bento-card-title">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B63E8" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                    <span>Today's Topics & Assessment Categories</span>
+                                </div>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:3px;">Select a subject below to initiate your 15-question evaluated test session.</p>
+                            </div>
+                            <span class="badge-pill purple">11 Categories Available</span>
+                        </div>
+
+                        <!-- 11 CATEGORY CARDS (With data-category preserved for dashboard.js) -->
+                        <div class="category-grid-styled">
+
+                            <div class="topic-card category-card" data-category="1">
+                                <div class="topic-icon">01</div>
+                                <div class="topic-title">Java</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="2">
+                                <div class="topic-icon">02</div>
+                                <div class="topic-title">DBMS</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="3">
+                                <div class="topic-icon">03</div>
+                                <div class="topic-title">Operating System</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="4">
+                                <div class="topic-icon">04</div>
+                                <div class="topic-title">Computer Networks</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="5">
+                                <div class="topic-icon">05</div>
+                                <div class="topic-title">HTML</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="6">
+                                <div class="topic-icon">06</div>
+                                <div class="topic-title">CSS</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="7">
+                                <div class="topic-icon">07</div>
+                                <div class="topic-title">JavaScript</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="8">
+                                <div class="topic-icon">08</div>
+                                <div class="topic-title">SQL</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="9">
+                                <div class="topic-icon">09</div>
+                                <div class="topic-title">Aptitude</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="10">
+                                <div class="topic-icon">10</div>
+                                <div class="topic-title">Logical Reasoning</div>
+                            </div>
+
+                            <div class="topic-card category-card" data-category="11">
+                                <div class="topic-icon">11</div>
+                                <div class="topic-title">Verbal Ability</div>
+                            </div>
+
+                        </div>
+
+                        <!-- EXISTING CATEGORY SELECT (Hidden visually but kept for 100% JS compatibility) -->
+                        <div class="category-section" style="margin-top: 14px; display: none;">
+                            <label for="category">Selected Category</label>
+                            <select id="category">
+                                <option value="">Choose Category</option>
+                                <option value="1">Java</option>
+                                <option value="2">DBMS</option>
+                                <option value="3">Operating System</option>
+                                <option value="4">Computer Networks</option>
+                                <option value="5">HTML</option>
+                                <option value="6">CSS</option>
+                                <option value="7">JavaScript</option>
+                                <option value="8">SQL</option>
+                                <option value="9">Aptitude</option>
+                                <option value="10">Logical Reasoning</option>
+                                <option value="11">Verbal Ability</option>
+                            </select>
+                        </div>
+
+                        <!-- LAUNCHER BAR -->
+                        <div class="quiz-launcher-bar">
+                            <div class="quiz-meta-info">
+                                <div class="quiz-meta-item">
+                                    <span>Selected Subject</span>
+                                    <strong id="selectedCategoryDisplay" style="color:var(--primary);">None (Please pick one)</strong>
+                                </div>
+                                <div class="quiz-meta-item">
+                                    <span>Question Count</span>
+                                    <strong>15 Questions</strong>
+                                </div>
+                                <div class="quiz-meta-item">
+                                    <span>Duration</span>
+                                    <strong>15 Minutes</strong>
+                                </div>
+                            </div>
+
+                            <button id="startQuizBtn" class="login-btn" style="width:auto; padding:12px 28px;">
+                                <span>Start Assessment</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         WIDGET 4: QUIZ SCHEDULER (col-5)
+                         Minimalist Contrasting Dark Calendar Surface
+                         ===================================================== -->
+                    <div class="bento-card col-5 scheduler-card tilt-card">
+                        <div class="bento-card-header">
+                            <div class="bento-card-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#75C9F5" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                <span>Quiz Scheduler</span>
+                            </div>
+                            <span class="badge-pill blue" style="background:rgba(57, 120, 246, 0.25); color:#75C9F5;">Calendar</span>
+                        </div>
+
+                        <div class="dark-calendar-surface">
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; font-weight:700;">
+                                <span id="currentMonthYear">November 2026</span>
+                                <span style="font-size:0.75rem; color:#75C9F5;">UTC+05:30</span>
+                            </div>
+
+                            <div class="calendar-days-grid">
+                                <div class="calendar-day-header">Su</div>
+                                <div class="calendar-day-header">Mo</div>
+                                <div class="calendar-day-header">Tu</div>
+                                <div class="calendar-day-header">We</div>
+                                <div class="calendar-day-header">Th</div>
+                                <div class="calendar-day-header">Fr</div>
+                                <div class="calendar-day-header">Sa</div>
+
+                                <div class="calendar-day-cell">1</div>
+                                <div class="calendar-day-cell">2</div>
+                                <div class="calendar-day-cell">3</div>
+                                <div class="calendar-day-cell">4</div>
+                                <div class="calendar-day-cell">5</div>
+                                <div class="calendar-day-cell">6</div>
+                                <div class="calendar-day-cell">7</div>
+                                <div class="calendar-day-cell">8</div>
+                                <div class="calendar-day-cell">9</div>
+                                <div class="calendar-day-cell active">10</div>
+                                <div class="calendar-day-cell">11</div>
+                                <div class="calendar-day-cell">12</div>
+                                <div class="calendar-day-cell">13</div>
+                                <div class="calendar-day-cell">14</div>
+                            </div>
+
+                            <div class="calendar-event-pill">
+                                <div>
+                                    <strong style="display:block; color:#FFFFFF;">Framer Motion Advanced</strong>
+                                    <span style="font-size:0.75rem; color:#8C98A9;">Today 4:00 PM • Slot Confirmed</span>
+                                </div>
+                                <span style="font-size:1.1rem;">🔔</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         WIDGET 5: RECENT QUIZ PERFORMANCE (col-7)
+                         ===================================================== -->
+                    <div class="bento-card col-7 tilt-card">
+                        <div class="bento-card-header">
+                            <div class="bento-card-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3978F6" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <span>Recent Quiz Performance</span>
+                            </div>
+                            <button onclick="window.location.href='history.html'" class="secondary-btn" style="padding:4px 12px; font-size:0.78rem;">Full History →</button>
+                        </div>
+
+                        <!-- Statistics summary -->
+                        <div class="performance-summary-row">
+                            <div class="perf-stat-pill">
+                                <span>Total Completed</span>
+                                <strong id="perfTotalAttempts">0</strong>
+                            </div>
+                            <div class="perf-stat-pill">
+                                <span>Avg. Accuracy</span>
+                                <strong id="perfAvgAccuracy" style="color:var(--mint-dark);">--%</strong>
+                            </div>
+                            <div class="perf-stat-pill">
+                                <span>Top Score</span>
+                                <strong id="perfTopScore" style="color:var(--primary);">--</strong>
+                            </div>
+                        </div>
+
+                        <!-- Recent Attempts List -->
+                        <div id="recentAttemptsContainer" style="font-size:0.88rem;">
+                            <div style="text-align:center; padding:1.5rem 0; color:var(--text-secondary);">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:8px; opacity:0.6;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                                <p>No completed attempts recorded yet. Pick a subject above to start!</p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
 
-
-                <div
-                    class="dashboard-user"
-                    id="dashboardUser"
-                >
-                    Student
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 WELCOME
-                 ================================================= -->
-
-            <div class="welcome-section">
-
-                <h1>
-                    Welcome Back!
-                </h1>
-
-                <p>
-                    Choose a category and start your quiz.
-                    Test your knowledge and prepare for your next opportunity.
-                </p>
-
-            </div>
-
-
-            <!-- =================================================
-                 QUIZ CATEGORY
-                 ================================================= -->
-
-            <div class="quiz-section-heading">
-
-                <h3>
-                    Choose Your Quiz
-                </h3>
-
-                <p>
-                    Select a subject from the categories below.
-                </p>
-
-            </div>
-
-
-            <!-- CATEGORY CARDS -->
-
-            <div class="category-grid">
-
-
-                <div
-                    class="category-card"
-                    data-category="1"
-                >
-
-                    <div class="category-number">
-                        01
-                    </div>
-
-                    <h4>
-                        Java
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="2"
-                >
-
-                    <div class="category-number">
-                        02
-                    </div>
-
-                    <h4>
-                        DBMS
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="3"
-                >
-
-                    <div class="category-number">
-                        03
-                    </div>
-
-                    <h4>
-                        Operating System
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="4"
-                >
-
-                    <div class="category-number">
-                        04
-                    </div>
-
-                    <h4>
-                        Computer Networks
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="5"
-                >
-
-                    <div class="category-number">
-                        05
-                    </div>
-
-                    <h4>
-                        HTML
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="6"
-                >
-
-                    <div class="category-number">
-                        06
-                    </div>
-
-                    <h4>
-                        CSS
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="7"
-                >
-
-                    <div class="category-number">
-                        07
-                    </div>
-
-                    <h4>
-                        JavaScript
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="8"
-                >
-
-                    <div class="category-number">
-                        08
-                    </div>
-
-                    <h4>
-                        SQL
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="9"
-                >
-
-                    <div class="category-number">
-                        09
-                    </div>
-
-                    <h4>
-                        Aptitude
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="10"
-                >
-
-                    <div class="category-number">
-                        10
-                    </div>
-
-                    <h4>
-                        Logical Reasoning
-                    </h4>
-
-                </div>
-
-
-                <div
-                    class="category-card"
-                    data-category="11"
-                >
-
-                    <div class="category-number">
-                        11
-                    </div>
-
-                    <h4>
-                        Verbal Ability
-                    </h4>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================================
-                 EXISTING CATEGORY SELECT
-                 Kept for dashboard.js compatibility
-                 ================================================= -->
-
-            <div class="category-section">
-
-                <label for="category">
-                    Selected Category
-                </label>
-
-
-                <select id="category">
-
-                    <option value="">
-                        Choose Category
-                    </option>
-
-                    <option value="1">
-                        Java
-                    </option>
-
-                    <option value="2">
-                        DBMS
-                    </option>
-
-                    <option value="3">
-                        Operating System
-                    </option>
-
-                    <option value="4">
-                        Computer Networks
-                    </option>
-
-                    <option value="5">
-                        HTML
-                    </option>
-
-                    <option value="6">
-                        CSS
-                    </option>
-
-                    <option value="7">
-                        JavaScript
-                    </option>
-
-                    <option value="8">
-                        SQL
-                    </option>
-
-                    <option value="9">
-                        Aptitude
-                    </option>
-
-                    <option value="10">
-                        Logical Reasoning
-                    </option>
-
-                    <option value="11">
-                        Verbal Ability
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- =================================================
-                 QUIZ INFORMATION
-                 ================================================= -->
-
-            <div class="quiz-info">
-
-
-                <div class="quiz-stat">
-
-                    <span class="quiz-stat-label">
-                        Number of Questions
-                    </span>
-
-                    <span class="quiz-stat-value">
-                        15
-                    </span>
-
-                </div>
-
-
-                <div class="quiz-stat">
-
-                    <span class="quiz-stat-label">
-                        Time Limit
-                    </span>
-
-                    <span class="quiz-stat-value">
-                        15 Minutes
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================================
-                 ACTION BUTTONS
-                 ================================================= -->
-
-            <div class="dashboard-actions">
-
-
-                <button
-                    id="startQuizBtn"
-                    class="login-btn"
-                >
-                    Start Quiz
-                </button>
-
-
-                <button
-                    onclick="window.location.href='history.html'"
-                    class="login-btn"
-                >
-                    View History
-                </button>
-
-
-                <button
-                    id="adminBtn"
-                    class="login-btn"
-                    onclick="window.location.href='admin.html'"
-                >
-                    Admin Panel
-                </button>
-
-
-            </div>
-
-
-            <!-- LOGOUT -->
-
-            <button
-                id="logoutBtn"
-                class="logout-btn"
-            >
-                Logout
-            </button>
-
-
+            </main>
         </div>
-
-
     </div>
 
+    <!-- =========================================================
+         MODALS (LEADERBOARD, PROFILE, SETTINGS)
+         Clean UI overlays with zero backend alterations
+         ========================================================= -->
+    <div id="profileModal" class="modal-overlay" onclick="closeModalOnBackdrop(event, 'profileModal')">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="font-size:1.25rem; font-weight:800;">Student Profile</h3>
+                <button onclick="document.getElementById('profileModal').style.display='none'" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:1.5rem;">
+                <div class="user-avatar-circle" style="width:54px; height:54px; font-size:1.3rem;" id="modalAvatar">S</div>
+                <div>
+                    <h4 id="modalName" style="font-size:1.1rem; font-weight:800;">Student User</h4>
+                    <span id="modalRole" class="badge-pill blue" style="margin-top:4px;">USER</span>
+                </div>
+            </div>
+            <div style="background:var(--bg-secondary); border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem; font-size:0.88rem; display:flex; flex-direction:column; gap:8px;">
+                <div><strong>User ID:</strong> <span id="modalUserId">--</span></div>
+                <div><strong>Session:</strong> Active & Authenticated</div>
+                <div><strong>Account Status:</strong> Verified Learner</div>
+            </div>
+            <button onclick="document.getElementById('profileModal').style.display='none'" class="primary-btn" style="margin-top:1.5rem;">Close Profile</button>
+        </div>
+    </div>
 
-    <!-- =====================================================
-         EXISTING DASHBOARD JAVASCRIPT
-         ===================================================== -->
+    <div id="leaderboardModal" class="modal-overlay" onclick="closeModalOnBackdrop(event, 'leaderboardModal')">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+                <h3 style="font-size:1.25rem; font-weight:800;">Global Leaderboard</h3>
+                <button onclick="document.getElementById('leaderboardModal').style.display='none'" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.25rem;">Rankings calculated based on quiz score, completion speed, and streak consistency.</p>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:0.88rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px;">
+                    <div><strong>🥇 1. Maya Lin</strong> <span style="font-size:0.75rem; color:#B45309;">(15/15)</span></div>
+                    <strong style="color:#B45309;">1,450 pts</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#F1F5F9; border:1px solid #E2E8F0; border-radius:10px;">
+                    <div><strong>🥈 2. David K.</strong> <span style="font-size:0.75rem; color:#475569;">(15/15)</span></div>
+                    <strong style="color:#475569;">1,380 pts</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#FEF3C7; border:1px solid #FCD34D; border-radius:10px;">
+                    <div><strong>🥉 3. Sophia R.</strong> <span style="font-size:0.75rem; color:#92400E;">(14/15)</span></div>
+                    <strong style="color:#92400E;">1,290 pts</strong>
+                </div>
+            </div>
+            <button onclick="document.getElementById('leaderboardModal').style.display='none'" class="primary-btn" style="margin-top:1.5rem;">Done</button>
+        </div>
+    </div>
 
+    <div id="settingsModal" class="modal-overlay" onclick="closeModalOnBackdrop(event, 'settingsModal')">
+        <div class="modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="font-size:1.25rem; font-weight:800;">Portal Settings</h3>
+                <button onclick="document.getElementById('settingsModal').style.display='none'" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:14px; font-size:0.9rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Theme</span>
+                    <strong style="color:var(--primary);">Cream Tech Light (Active)</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Timer Sound Alerts</span>
+                    <span class="badge-pill mint">Enabled</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Network Resilience</span>
+                    <span class="badge-pill blue">Auto-Sync On</span>
+                </div>
+            </div>
+            <button onclick="document.getElementById('settingsModal').style.display='none'" class="primary-btn" style="margin-top:1.5rem;">Save Preferences</button>
+        </div>
+    </div>
+
+    <!-- TECH EFFECTS ENGINE (Particles, 3D Tilt, Rotating Tech Globe) -->
+    <script src="js/tech-effects.js"></script>
+
+    <!-- EXISTING DASHBOARD JAVASCRIPT -->
     <script src="js/api-config.js"></script>
     <script src="js/dashboard.js"></script>
 
-
-    <!-- =====================================================
-         DASHBOARD UI LOGIC
-         Only handles visual category selection + admin button.
-         Existing dashboard.js remains untouched.
-         ===================================================== -->
-
+    <!-- DASHBOARD UI LOGIC -->
     <script>
+        // Init 3D Globe for Widget 2
+        if (window.OQEffects && window.OQEffects.initTechGlobe) {
+            window.OQEffects.initTechGlobe('globeCanvas');
+        }
 
-        /* =====================================================
-           CATEGORY CARD SELECTION
-           ===================================================== */
+        // Category names lookup
+        const categoryNames = {
+            "1": "Java",
+            "2": "DBMS",
+            "3": "Operating System",
+            "4": "Computer Networks",
+            "5": "HTML",
+            "6": "CSS",
+            "7": "JavaScript",
+            "8": "SQL",
+            "9": "Aptitude",
+            "10": "Logical Reasoning",
+            "11": "Verbal Ability"
+        };
 
-        const categorySelect =
-            document.getElementById("category");
+        const categorySelect = document.getElementById("category");
+        const categoryCards = document.querySelectorAll(".category-card");
+        const selectedDisplay = document.getElementById("selectedCategoryDisplay");
 
-        const categoryCards =
-            document.querySelectorAll(".category-card");
-
+        function updateCategoryUI(catId) {
+            categorySelect.value = catId;
+            categoryCards.forEach(c => {
+                if (c.getAttribute("data-category") === catId) {
+                    c.classList.add("active");
+                } else {
+                    c.classList.remove("active");
+                }
+            });
+            if (selectedDisplay) {
+                selectedDisplay.innerText = categoryNames[catId] ? categoryNames[catId] : "None Selected";
+            }
+        }
 
         categoryCards.forEach(card => {
-
-            card.addEventListener(
-                "click",
-                function() {
-
-                    const categoryId =
-                        this.getAttribute(
-                            "data-category"
-                        );
-
-
-                    categorySelect.value =
-                        categoryId;
-
-
-                    categoryCards.forEach(
-                        item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                    this.classList.add("active");
-
-                }
-            );
-
+            card.addEventListener("click", function() {
+                const catId = this.getAttribute("data-category");
+                updateCategoryUI(catId);
+            });
         });
 
+        if (categorySelect) {
+            categorySelect.addEventListener("change", function() {
+                updateCategoryUI(this.value);
+            });
+        }
 
-        /* =====================================================
-           SELECT DROPDOWN SYNC
-           ===================================================== */
-
-        categorySelect.addEventListener(
-            "change",
-            function() {
-
-                categoryCards.forEach(
-                    card => {
-
-                        card.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                if (this.value !== "") {
-
-                    const selectedCard =
-                        document.querySelector(
-                            '.category-card[data-category="' +
-                            this.value +
-                            '"]'
-                        );
-
-
-                    if (selectedCard) {
-
-                        selectedCard.classList.add(
-                            "active"
-                        );
-
-                    }
-
-                }
-
+        // Dynamic Calendar Month & Today Highlight
+        try {
+            const calNow = new Date();
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const calMonthYear = document.getElementById("currentMonthYear");
+            if (calMonthYear) {
+                calMonthYear.innerText = monthNames[calNow.getMonth()] + " " + calNow.getFullYear();
             }
-        );
+            const todayDate = calNow.getDate();
+            document.querySelectorAll(".calendar-day-cell").forEach(cell => {
+                if (parseInt(cell.innerText, 10) === todayDate) {
+                    cell.classList.add("active");
+                } else {
+                    cell.classList.remove("active");
+                }
+            });
+        } catch (e) {
+            console.log("Calendar init info:", e);
+        }
 
-
-        /* =====================================================
-           SHOW USER NAME
-           ===================================================== */
-
-        const storedUserName =
-            localStorage.getItem(
-                "userName"
-            );
-
+        // Display user info
+        const storedUserName = localStorage.getItem("userName");
+        const storedUserId = localStorage.getItem("userId");
+        const storedRole = localStorage.getItem("userRole");
 
         if (storedUserName) {
-
-            document.getElementById(
-                "dashboardUser"
-            ).innerText =
-                "Welcome, " +
-                storedUserName;
-
+            document.getElementById("dashboardUser").innerText = storedUserName;
+            document.getElementById("headerUserName").innerText = storedUserName;
+            const initial = storedUserName.trim().charAt(0).toUpperCase();
+            document.getElementById("userAvatar").innerText = initial;
+            const modalAv = document.getElementById("modalAvatar");
+            if (modalAv) modalAv.innerText = initial;
+            const modalNm = document.getElementById("modalName");
+            if (modalNm) modalNm.innerText = storedUserName;
         }
 
-
-        /* =====================================================
-           ADMIN BUTTON
-           ===================================================== */
-
-        const storedRole =
-            localStorage.getItem(
-                "userRole"
-            );
-
-
-        if (
-            storedRole &&
-            storedRole.toLowerCase() === "admin"
-        ) {
-
-            document.getElementById(
-                "adminBtn"
-            ).style.display =
-                "block";
-
+        if (storedUserId) {
+            const mId = document.getElementById("modalUserId");
+            if (mId) mId.innerText = storedUserId;
         }
 
+        if (storedRole) {
+            const mRole = document.getElementById("modalRole");
+            if (mRole) mRole.innerText = storedRole.toUpperCase();
+            if (storedRole.toLowerCase() === "admin") {
+                const adminBtn = document.getElementById("adminBtn");
+                if (adminBtn) adminBtn.style.display = "inline-flex";
+            }
+        }
+
+        // Fetch recent performance attempts to populate Widget 5
+        async function loadRecentPerformance() {
+            if (!storedUserId) return;
+            const token = localStorage.getItem("authToken");
+            const baseUrl = typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com";
+
+            try {
+                const response = await fetch(baseUrl + "/api/attempts/user/" + storedUserId, {
+                    headers: token ? { "Authorization": "Bearer " + token } : {}
+                });
+
+                if (response.ok) {
+                    const attempts = await response.json();
+                    if (Array.isArray(attempts) && attempts.length > 0) {
+                        document.getElementById("perfTotalAttempts").innerText = attempts.length;
+                        
+                        let totalScore = 0;
+                        let maxScore = 0;
+                        attempts.forEach(a => {
+                            const sc = a.score || 0;
+                            totalScore += sc;
+                            if (sc > maxScore) maxScore = sc;
+                        });
+
+                        const avg = Math.round((totalScore / (attempts.length * 15)) * 100);
+                        document.getElementById("perfAvgAccuracy").innerText = (!isNaN(avg) ? avg : 0) + "%";
+                        document.getElementById("perfTopScore").innerText = maxScore + " / 15";
+
+                        // Render recent 3 attempts
+                        const container = document.getElementById("recentAttemptsContainer");
+                        let html = '<div style="display:flex; flex-direction:column; gap:8px;">';
+                        attempts.slice(-3).reverse().forEach(att => {
+                            const dateStr = att.startTime ? att.startTime.replace("T", " ").substring(0, 16) : "Recent";
+                            html += `
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--bg-secondary); border:1px solid var(--border); border-radius:10px;">
+                                    <div>
+                                        <strong style="color:var(--text-main);">Attempt #${att.id}</strong>
+                                        <span style="font-size:0.75rem; color:var(--text-secondary); display:block;">${dateStr}</span>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <span class="badge-pill blue" style="font-size:0.75rem;">Score: ${att.score} / ${att.totalQuestions || 15}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                        container.innerHTML = html;
+                    }
+                }
+            } catch (err) {
+                console.log("Performance widget load info:", err);
+            }
+        }
+
+        loadRecentPerformance();
+
+        // Modal handlers
+        window.openProfileModal = function() {
+            document.getElementById("profileModal").style.display = "flex";
+        };
+        window.openLeaderboardModal = function() {
+            document.getElementById("leaderboardModal").style.display = "flex";
+        };
+        window.openSettingsModal = function() {
+            document.getElementById("settingsModal").style.display = "flex";
+        };
+        window.closeModalOnBackdrop = function(e, modalId) {
+            if (e.target.id === modalId) {
+                document.getElementById(modalId).style.display = "none";
+            }
+        };
     </script>
 
-
 </body>
-
 </html>

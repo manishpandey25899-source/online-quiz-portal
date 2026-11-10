@@ -1,333 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Quiz Portal - Quiz History</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
+    <link rel="stylesheet" href="css/style.css">
     <style>
-
-        /* =====================================================
-           HISTORY BRAND
-           ===================================================== */
-
-        .history-brand {
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            margin-bottom: 18px;
-
-        }
-
-
-        .history-brand-logo {
-
-            width: 50px;
-
-            height: 50px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 14px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                );
-
-            color: white;
-
-            font-size: 19px;
-
-            font-weight: 800;
-
-            box-shadow:
-                0 8px 18px
-                rgba(57, 120, 246, 0.20);
-
-        }
-
-
-        /* =====================================================
-           TITLE
-           ===================================================== */
-
-        .history-title {
-
-            margin-bottom: 6px;
-
-            color: var(--text-main);
-
-            font-size: 30px;
-
-            font-weight: 800;
-
-            letter-spacing: -0.5px;
-
-        }
-
-
-        .history-subtitle {
-
-            margin-bottom: 26px;
-
-            color: var(--text-secondary);
-
-            font-size: 14px;
-
-        }
-
-
-        /* =====================================================
-           TABLE WRAPPER
-           ===================================================== */
-
-        .history-table-wrapper {
-
+        .history-layout {
             width: 100%;
-
-            overflow-x: auto;
-
-            border-radius: 13px;
-
-            margin-bottom: 24px;
-
-            -webkit-overflow-scrolling: touch;
-
+            max-width: 960px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
         }
 
+        .history-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table-container {
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 1.5rem;
+        }
 
         #historyTable {
-
-            background: white;
-
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
         }
 
+        #historyTable th {
+            background: var(--bg-secondary);
+            padding: 14px 18px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
 
         #historyTable td {
-
-            color: var(--text-secondary);
-
+            padding: 16px 18px;
+            font-size: 0.92rem;
             font-weight: 600;
-
-        }
-
-
-        #historyTable td:first-child {
-
             color: var(--text-main);
-
-            font-weight: 700;
-
+            border-bottom: 1px solid var(--border);
         }
 
-
-        /* =====================================================
-           BACK BUTTON
-           ===================================================== */
-
-        #backBtn {
-
-            margin-top: 2px;
-
+        #historyTable tbody tr:hover,
+        #historyTable tr:hover {
+            background: #F9FBFE;
         }
 
-
-        /* =====================================================
-           MOBILE
-           ===================================================== */
-
-        @media (max-width: 600px) {
-
-            .result-box {
-
-                padding:
-                    30px 16px;
-
-            }
-
-
-            .history-brand-logo {
-
-                width: 46px;
-
-                height: 46px;
-
-                border-radius: 13px;
-
-            }
-
-
-            .history-title {
-
-                font-size: 26px;
-
-            }
-
-
-            .history-subtitle {
-
-                font-size: 13px;
-
-                margin-bottom: 22px;
-
-            }
-
-
-            .history-table-wrapper {
-
-                margin-left: -2px;
-
-                margin-right: -2px;
-
-                width: calc(100% + 4px);
-
-            }
-
-
-            .history-table-wrapper table {
-
-                min-width: 500px;
-
-            }
-
+        #historyTable tr:last-child td {
+            border-bottom: none;
         }
-
     </style>
-
 </head>
-
-
 <body>
 
+    <div class="container" style="align-items: flex-start; padding-top: 2.5rem;">
+        <div class="history-layout">
+            <div class="history-box tilt-card" style="text-align: left; padding: 2.5rem;">
 
-    <div class="result-container">
+                <!-- HEADER -->
+                <div class="history-header-bar">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div class="brand-logo" style="width:44px; height:44px; font-size:1.15rem; border-radius:12px;">OQ</div>
+                        <div>
+                            <span class="badge-pill blue" style="margin-bottom: 4px;">Historical Records</span>
+                            <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">Assessment History</h1>
+                        </div>
+                    </div>
 
+                    <button id="backBtn" class="secondary-btn" type="button" style="padding: 10px 18px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        <span>Back To Dashboard</span>
+                    </button>
+                </div>
 
-        <div class="result-box">
-
-
-            <!-- =================================================
-                 OQ BRAND
-                 ================================================= -->
-
-            <div class="history-brand">
-
-                <div class="history-brand-logo">
-                    OQ
+                <!-- TABLE WRAPPER -->
+                <div class="history-table-container table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Attempt ID</th>
+                                <th>Score (Points)</th>
+                                <th>Total Questions</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTable">
+                            <!-- Loaded dynamically via history.js -->
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
-
-
-            <!-- =================================================
-                 PAGE TITLE
-                 ================================================= -->
-
-            <h1 class="history-title">
-                Quiz History
-            </h1>
-
-
-            <p class="history-subtitle">
-                Review your previous quiz attempts and scores.
-            </p>
-
-
-            <!-- =================================================
-                 HISTORY TABLE
-                 ================================================= -->
-
-            <div class="history-table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                ID
-                            </th>
-
-                            <th>
-                                Score
-                            </th>
-
-                            <th>
-                                Total
-                            </th>
-
-                            <th>
-                                Date
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <!--
-                        IMPORTANT:
-                        history.js inserts the rows here.
-                        ID must remain historyTable.
-                    -->
-
-                    <tbody id="historyTable">
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-
-            <!-- =================================================
-                 BACK BUTTON
-                 ================================================= -->
-
-            <button
-                id="backBtn"
-                class="login-btn"
-            >
-                Back To Dashboard
-            </button>
-
-
         </div>
-
-
     </div>
 
+    <!-- TECH EFFECTS ENGINE -->
+    <script src="js/tech-effects.js"></script>
 
     <!-- EXISTING HISTORY JAVASCRIPT -->
-
     <script src="js/api-config.js"></script>
     <script src="js/history.js"></script>
 
+    <!-- EMPTY STATE CHECK -->
+    <script>
+        setTimeout(function() {
+            const tbody = document.getElementById("historyTable");
+            if (tbody && tbody.children.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align:center; padding:2.5rem 1rem; color:var(--text-secondary);">
+                            <div style="font-size:1.05rem; font-weight:700; color:var(--text-main); margin-bottom:4px;">No Quiz Attempts Yet</div>
+                            <div>Start a test from your dashboard to record your performance history.</div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }, 1200);
+    </script>
 
 </body>
-
 </html>

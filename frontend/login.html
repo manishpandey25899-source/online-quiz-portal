@@ -1,157 +1,231 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Online Quiz Portal - Login</title>
-
+    <title>Online Quiz Portal - Premium Login</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <style>
+        .auth-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 440px;
+            margin: auto;
+        }
 
+        .auth-card-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(57, 120, 246, 0.12), rgba(107, 99, 232, 0.08), transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .auth-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .auth-header .brand-logo {
+            margin: 0 auto 1.25rem;
+            width: 58px;
+            height: 58px;
+            font-size: 1.5rem;
+            border-radius: 18px;
+        }
+
+        .auth-header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.35rem;
+        }
+
+        .auth-header p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-wrapper input {
+            padding-left: 44px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--transition-fast);
+        }
+
+        .password-toggle-btn:hover {
+            color: var(--primary);
+        }
+
+        .auth-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        #forgotPasswordLink {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color var(--transition-fast);
+            padding: 0;
+            text-decoration: none;
+        }
+
+        #forgotPasswordLink:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
 
     <div class="container">
-        <div class="login-box">
+        <div class="auth-wrapper">
+            <div class="auth-card-glow"></div>
+            <div class="login-box tilt-card">
 
-            <!-- OQ BRAND -->
-            <div
-                class="brand"
-                style="justify-content:center; margin-bottom:28px;"
-            >
-                <div class="brand-logo">
-                    OQ
-                </div>
-            </div>
-
-            <!-- PORTAL TITLE -->
-            <h1
-                style="
-                    font-size:32px;
-                    font-weight:800;
-                    color:#24324a;
-                    margin-bottom:8px;
-                "
-            >
-                Online Quiz Portal
-            </h1>
-
-            <!-- LOGIN SUBTITLE -->
-            <p
-                style="
-                    font-size:16px;
-                    font-weight:600;
-                    color:#667085;
-                    margin-bottom:30px;
-                "
-            >
-                Login to Continue
-            </p>
-
-            <!-- LOGIN FORM -->
-            <form id="loginForm">
-
-                <!-- EMAIL -->
-                <div class="input-group">
-                    <label for="email">Email Address</label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        required
-                    >
+                <!-- OQ BRAND -->
+                <div class="auth-header">
+                    <div class="brand-logo">
+                        OQ
+                    </div>
+                    <span class="badge-pill blue" style="margin-bottom: 12px;">AI Quiz Portal 2.0</span>
+                    <h1>Online Quiz Portal</h1>
+                    <p>Enter your credentials to access your dashboard</p>
                 </div>
 
-                <!-- PASSWORD -->
-                <div class="input-group">
-                    <label for="password">Password</label>
+                <!-- LOGIN FORM -->
+                <form id="loginForm">
 
-                    <div style="position:relative; width:100%;">
+                    <!-- EMAIL -->
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <div class="input-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="name@institution.edu"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                    </div>
 
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Enter your password"
-                            required
-                            style="
-                                width:100%;
-                                box-sizing:border-box;
-                                padding-right:48px;
-                            "
-                        >
+                    <!-- PASSWORD -->
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <div class="input-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Enter your secure password"
+                                required
+                                style="padding-right: 48px;"
+                                autocomplete="current-password"
+                            >
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle-btn"
+                                aria-label="Show password"
+                                title="Show password"
+                            >👁️</button>
+                        </div>
+                    </div>
 
+                    <!-- FORGOT PASSWORD -->
+                    <div class="auth-options">
+                        <div></div>
                         <button
                             type="button"
-                            id="togglePassword"
-                            aria-label="Show password"
-                            title="Show password"
-                            style="
-                                position:absolute;
-                                right:10px;
-                                top:50%;
-                                transform:translateY(-50%);
-                                border:none;
-                                background:transparent;
-                                cursor:pointer;
-                                font-size:20px;
-                                padding:4px;
-                            "
-                        >👁️</button>
-
+                            id="forgotPasswordLink"
+                        >Forgot Password?</button>
                     </div>
-                </div>
 
-                <!-- FORGOT PASSWORD -->
-                <div
-                    style="
-                        display:flex !important;
-                        justify-content:flex-end !important;
-                        visibility:visible !important;
-                        opacity:1 !important;
-                        width:100%;
-                        margin:0 0 18px 0;
-                    "
-                >
+                    <!-- LOGIN BUTTON -->
                     <button
-                        type="button"
-                        id="forgotPasswordLink"
-                        style="
-                            display:inline-block !important;
-                            visibility:visible !important;
-                            opacity:1 !important;
-                            color:#2563eb !important;
-                            background:transparent !important;
-                            border:none !important;
-                            padding:6px 0 !important;
-                            margin:0 !important;
-                            font-size:14px !important;
-                            font-weight:600 !important;
-                            cursor:pointer !important;
-                            text-decoration:underline !important;
-                        "
-                    >Forgot Password?</button>
+                        type="submit"
+                        class="login-btn"
+                    >
+                        <span>Sign In</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+
+                </form>
+
+                <!-- REGISTER LINK -->
+                <div class="register-link">
+                    Don't have an account?
+                    <a href="register.html">Register</a>
                 </div>
 
-                <!-- LOGIN BUTTON -->
-                <button
-                    type="submit"
-                    class="login-btn"
-                >
-                    Login
-                </button>
-
-            </form>
-
-            <!-- REGISTER LINK -->
-            <div class="register-link">
-                Don't have an account?
-                <a href="register.html">Register</a>
             </div>
-
         </div>
     </div>
+
+    <!-- TECH EFFECTS ENGINE -->
+    <script src="js/tech-effects.js"></script>
 
     <!-- EXISTING LOGIN JAVASCRIPT -->
     <script src="js/api-config.js"></script>
@@ -160,48 +234,27 @@
     <!-- SHOW PASSWORD AND FORGOT PASSWORD MESSAGE -->
     <script>
         (function () {
-
-            const passwordField =
-                document.getElementById("password");
-
-            const toggleButton =
-                document.getElementById("togglePassword");
-
-            const forgotButton =
-                document.getElementById("forgotPasswordLink");
+            const passwordField = document.getElementById("password");
+            const toggleButton = document.getElementById("togglePassword");
+            const forgotButton = document.getElementById("forgotPasswordLink");
 
             toggleButton.addEventListener("click", function () {
-
                 if (passwordField.type === "password") {
                     passwordField.type = "text";
                     toggleButton.innerText = "🙈";
-                    toggleButton.setAttribute(
-                        "aria-label",
-                        "Hide password"
-                    );
-                    toggleButton.setAttribute(
-                        "title",
-                        "Hide password"
-                    );
+                    toggleButton.setAttribute("aria-label", "Hide password");
+                    toggleButton.setAttribute("title", "Hide password");
                 } else {
                     passwordField.type = "password";
                     toggleButton.innerText = "👁️";
-                    toggleButton.setAttribute(
-                        "aria-label",
-                        "Show password"
-                    );
-                    toggleButton.setAttribute(
-                        "title",
-                        "Show password"
-                    );
+                    toggleButton.setAttribute("aria-label", "Show password");
+                    toggleButton.setAttribute("title", "Show password");
                 }
-
             });
 
             forgotButton.addEventListener("click", function () {
                 window.location.href = "forgot-password.html";
             });
-
         })();
     </script>
 
