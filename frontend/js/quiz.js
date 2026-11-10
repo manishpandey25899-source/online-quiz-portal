@@ -435,23 +435,23 @@ async function saveAttempt(
 
     try {
 
-        let response =
-            await fetch(
-                "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
-                {
-                    method: "POST",
+        let authToken = localStorage.getItem("authToken");
+        let baseUrl = typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com";
+        let headers = {
+            "Content-Type": "application/json"
+        };
+        if (authToken) {
+            headers["Authorization"] = "Bearer " + authToken;
+        }
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(
-                            attemptData
-                        )
-                }
-            );
+        let response = await fetch(
+            baseUrl + "/api/attempts/save",
+            {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(attemptData)
+            }
+        );
 
 
         if (response.ok) {
@@ -652,53 +652,38 @@ function handlePageExit() {
     );
 
 
-    // Try Beacon for reliable page-exit save
-    if (
-        navigator.onLine &&
-        navigator.sendBeacon
-    ) {
-
+    // Use secure fetch with keepalive: true and Authorization header
+    if (navigator.onLine) {
         try {
-
-            let blob =
-                new Blob(
-                    [
-                        JSON.stringify(
-                            attemptData
-                        )
-                    ],
-                    {
-                        type:
-                            "application/json"
-                    }
-                );
-
-
-            let beaconSent =
-                navigator.sendBeacon(
-                    "https://online-quiz-backend-iy84.onrender.com/api/attempts/save",
-                    blob
-                );
-
-
-            if (beaconSent) {
-
-                localStorage.setItem(
-                    "pendingAttemptStatus",
-                    "sent"
-                );
-
+            let authToken = localStorage.getItem("authToken");
+            let baseUrl = typeof API_BASE_URL !== "undefined" ? API_BASE_URL : "https://online-quiz-backend-iy84.onrender.com";
+            let headers = {
+                "Content-Type": "application/json"
+            };
+            if (authToken) {
+                headers["Authorization"] = "Bearer " + authToken;
             }
 
+            fetch(
+                baseUrl + "/api/attempts/save",
+                {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(attemptData),
+                    keepalive: true
+                }
+            ).then(res => {
+                if (res.ok) {
+                    localStorage.setItem("pendingAttemptStatus", "sent");
+                }
+            }).catch(e => {
+                console.log("Keepalive fetch error:", e);
+            });
+
+            localStorage.setItem("pendingAttemptStatus", "sent");
         } catch (error) {
-
-            console.log(
-                "Beacon Error:",
-                error
-            );
-
+            console.log("Page exit auto-save error:", error);
         }
-
     }
 }
 

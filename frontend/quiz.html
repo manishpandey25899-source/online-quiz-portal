@@ -1,952 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Online Quiz Portal - Quiz</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Portal - Live Assessment</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
+        .quiz-focus-wrapper {
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
 
-        /* =====================================================
-           QUIZ PAGE HEADER
-           ===================================================== */
+        .quiz-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
 
+        /* TOP BAR */
         .quiz-topbar {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
-            gap: 20px;
-
-            padding-bottom: 22px;
-
-            margin-bottom: 22px;
-
-            border-bottom:
-                1px solid var(--border-light);
-
+            gap: 16px;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-
-        .quiz-brand {
-
+        .quiz-brand-inline {
             display: flex;
-
             align-items: center;
-
             gap: 12px;
-
-            text-align: left;
-
-            min-width: 0;
-
         }
 
-
-        .quiz-brand-logo {
-
-            width: 46px;
-
-            height: 46px;
-
-            flex-shrink: 0;
-
+        .quiz-timer-pill {
             display: flex;
-
             align-items: center;
-
-            justify-content: center;
-
-            border-radius: 13px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                );
-
-            color: white;
-
-            font-size: 18px;
-
-            font-weight: 800;
-
-            box-shadow:
-                0 8px 18px
-                rgba(57, 120, 246, 0.20);
-
-        }
-
-
-        .quiz-brand-text {
-
-            display: flex;
-
-            flex-direction: column;
-
-            min-width: 0;
-
-        }
-
-
-        .quiz-brand-text strong {
-
-            font-size: 19px;
-
-            font-weight: 800;
-
-            color: var(--text-main);
-
-            line-height: 1.2;
-
-        }
-
-
-        .quiz-brand-text span {
-
-            margin-top: 3px;
-
-            color: var(--text-secondary);
-
-            font-size: 12px;
-
-        }
-
-
-        /* =====================================================
-           QUIZ META
-           ===================================================== */
-
-        .quiz-meta {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-        }
-
-
-        .quiz-meta-badge {
-
-            padding: 7px 11px;
-
-            border-radius: 999px;
-
-            background: var(--primary-soft);
-
-            color: var(--primary-dark);
-
-            border:
-                1px solid #d8e7ff;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-        }
-
-
-        /* =====================================================
-           TIMER
-           ===================================================== */
-
-        #timer {
-
-            min-width: 100px;
-
-            padding: 10px 15px;
-
-            text-align: center;
-
-            border-radius: 999px;
-
+            gap: 8px;
             background: var(--danger-soft);
-
+            border: 1px solid #FFD1D1;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
             color: var(--danger-dark);
-
-            border:
-                1px solid #ffd1d1;
-
-            font-size: 15px;
-
             font-weight: 800;
-
-            box-shadow:
-                0 5px 14px
-                rgba(228, 88, 88, 0.08);
-
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(228, 88, 88, 0.1);
         }
 
-
-        /* =====================================================
-           PROGRESS AREA
-           ===================================================== */
-
-        .quiz-progress-top {
-
+        /* PROGRESS */
+        .progress-meta-row {
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
-            margin-bottom: 9px;
-
-            gap: 12px;
-
+            margin-bottom: 8px;
+            font-size: 0.85rem;
         }
 
-
-        .quiz-progress-label {
-
-            color: var(--text-secondary);
-
-            font-size: 13px;
-
-            font-weight: 700;
-
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: #EAF0F8;
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: 1.75rem;
         }
 
-
-        .quiz-progress-status {
-
-            color: var(--primary-dark);
-
-            font-size: 13px;
-
-            font-weight: 800;
-
-            white-space: nowrap;
-
+        #progressBar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--mint) 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.35s ease;
         }
 
-
-        /* =====================================================
-           QUESTION NUMBER
-           ===================================================== */
+        /* QUESTION BOX */
+        .question-card-inner {
+            background: #F8FAFD;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
         #questionNumber {
-
-            margin: 24px 0 12px;
-
-            color: var(--text-main);
-
-            font-size: 20px;
-
+            font-size: 1.25rem;
             font-weight: 800;
-
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
         }
-
-
-        /* =====================================================
-           QUESTION CARD
-           ===================================================== */
-
-        .question-box {
-
-            margin-top: 0;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f7faff,
-                    #faf9ff
-                );
-
-            border:
-                1px solid #e5ebf5;
-
-            border-radius: 16px;
-
-            padding: 23px;
-
-            box-shadow:
-                0 5px 15px
-                rgba(42, 73, 120, 0.04);
-
-        }
-
 
         #questionText {
-
-            color: var(--text-main);
-
-            font-size: 18px;
-
-            font-weight: 700;
-
-            line-height: 1.65;
-
-        }
-
-
-        /* =====================================================
-           OPTIONS
-           ===================================================== */
-
-        .options {
-
-            margin-top: 20px;
-
-        }
-
-
-        .options label {
-
-            position: relative;
-
-            display: flex;
-
-            align-items: flex-start;
-
-            gap: 12px;
-
-            width: 100%;
-
-            min-height: 58px;
-
-            margin: 0;
-
-            padding: 16px;
-
-            background: white;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 13px;
-
-            color: var(--text-main);
-
-            cursor: pointer;
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-
-        }
-
-
-        .options label + label {
-
-            margin-top: 12px;
-
-        }
-
-
-        .options label:hover {
-
-            transform: translateY(-2px);
-
-            border-color: #b9d2ff;
-
-            background: #fbfdff;
-
-            box-shadow:
-                0 8px 18px
-                rgba(42, 73, 120, 0.08);
-
-        }
-
-
-        .options input[type="radio"] {
-
-            width: 18px;
-
-            height: 18px;
-
-            margin: 2px 0 0;
-
-            flex-shrink: 0;
-
-            accent-color: var(--primary);
-
-            cursor: pointer;
-
-        }
-
-
-        .options span {
-
-            flex: 1;
-
-            font-size: 15px;
-
+            font-size: 1.15rem;
             font-weight: 600;
-
-            line-height: 1.45;
-
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-
-        /* =====================================================
-           QUIZ NAVIGATION
-           ===================================================== */
-
-        .quiz-buttons {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr 1.2fr;
-
+        /* OPTIONS */
+        .options-list {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
-
-            margin-top: 25px;
-
         }
 
-
-        .quiz-buttons button {
-
-            min-height: 46px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            padding: 11px 16px;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
+        .option-choice-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 1.1rem 1.25rem;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
             cursor: pointer;
-
-            color: white;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--primary),
-                    #4f8cff
-                );
-
-            box-shadow:
-                0 6px 15px
-                rgba(57, 120, 246, 0.15);
-
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease;
-
+            transition: all var(--transition-fast);
+            color: var(--text-main);
+            position: relative;
         }
 
-
-        .quiz-buttons button:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 9px 19px
-                rgba(57, 120, 246, 0.19);
-
+        .option-choice-label:hover {
+            border-color: var(--primary);
+            background: #FBFDFF;
+            transform: translateX(4px);
         }
 
-
-        .quiz-buttons button:active {
-
-            transform: translateY(0);
-
+        .option-choice-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
+        .option-choice-label span {
+            font-size: 0.98rem;
+            font-weight: 600;
+            line-height: 1.45;
+            flex: 1;
+        }
+
+        .option-choice-label:has(input[type="radio"]:checked) {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(57, 120, 246, 0.06) 0%, rgba(107, 99, 232, 0.04) 100%);
+            box-shadow: 0 4px 14px rgba(57, 120, 246, 0.12);
+        }
+
+        .option-choice-label:has(input[type="radio"]:checked) span {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        /* NAVIGATION BUTTONS */
+        .quiz-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.35fr;
+            gap: 14px;
+            margin-top: 2rem;
+        }
+
+        .quiz-actions-grid button {
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all var(--transition-fast);
+        }
+
+        #prevBtn {
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        #prevBtn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        #nextBtn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #FFFFFF;
+            border: none;
+            box-shadow: var(--shadow-glow);
+        }
+
+        #nextBtn:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
 
         #submitBtn {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #328c78,
-                    #45a88f
-                );
-
-            box-shadow:
-                0 6px 15px
-                rgba(31, 167, 116, 0.15);
-
+            background: linear-gradient(135deg, var(--mint-dark) 0%, #178e69 100%);
+            color: #FFFFFF;
+            border: none;
+            box-shadow: 0 6px 18px rgba(31, 167, 116, 0.25);
         }
-
 
         #submitBtn:hover {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #287766,
-                    #3b967f
-                );
-
-            box-shadow:
-                0 9px 19px
-                rgba(31, 167, 116, 0.20);
-
+            filter: brightness(1.08);
+            transform: translateY(-1px);
         }
-
-
-        /* =====================================================
-           RESPONSIVE
-           ===================================================== */
 
         @media (max-width: 650px) {
-
-            .quiz-box {
-
-                padding: 22px 16px;
-
+            .quiz-card {
+                padding: 1.5rem 1.25rem;
             }
 
-
-            .quiz-topbar {
-
-                align-items: flex-start;
-
-            }
-
-
-            .quiz-brand-text strong {
-
-                font-size: 17px;
-
-            }
-
-
-            .quiz-brand-text span {
-
-                font-size: 11px;
-
-            }
-
-
-            .quiz-meta {
-
-                flex-direction: column;
-
-                align-items: flex-end;
-
-                gap: 7px;
-
-            }
-
-
-            .quiz-meta-badge {
-
-                display: none;
-
-            }
-
-
-            #timer {
-
-                min-width: 82px;
-
-                padding: 8px 11px;
-
-                font-size: 13px;
-
-            }
-
-
-            #questionNumber {
-
-                font-size: 18px;
-
-            }
-
-
-            .question-box {
-
-                padding: 18px;
-
-            }
-
-
-            #questionText {
-
-                font-size: 16px;
-
-            }
-
-
-            .options label {
-
-                min-height: 54px;
-
-                padding: 14px 12px;
-
-            }
-
-
-            .options span {
-
-                font-size: 14px;
-
-            }
-
-
-            .quiz-buttons {
-
+            .quiz-actions-grid {
                 grid-template-columns: 1fr;
-
             }
-
-
-            .quiz-buttons button {
-
-                width: 100%;
-
-            }
-
         }
-
-
-        @media (max-width: 390px) {
-
-            .quiz-topbar {
-
-                gap: 10px;
-
-            }
-
-
-            .quiz-brand-logo {
-
-                width: 42px;
-
-                height: 42px;
-
-                border-radius: 11px;
-
-            }
-
-
-            .quiz-brand-text strong {
-
-                font-size: 16px;
-
-            }
-
-
-            .quiz-box {
-
-                padding: 18px 12px;
-
-            }
-
-
-            .question-box {
-
-                padding: 15px;
-
-            }
-
-        }
-
     </style>
-
 </head>
-
-
 <body>
 
-
     <div class="quiz-container">
+        <div class="quiz-focus-wrapper">
+            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:100%; height:100%; background:radial-gradient(circle at 50% 50%, rgba(57, 120, 246, 0.10), rgba(101, 214, 176, 0.08), transparent 70%); filter:blur(40px); z-index:-1; pointer-events:none;"></div>
+            <div class="quiz-card quiz-box tilt-card">
 
-
-        <div class="quiz-box">
-
-
-            <!-- =================================================
-                 TOP BAR
-                 ================================================= -->
-
-            <div class="quiz-topbar">
-
-
-                <div class="quiz-brand">
-
-
-                    <div class="quiz-brand-logo">
-                        OQ
+                <!-- TOP BAR -->
+                <div class="quiz-topbar">
+                    <div class="quiz-brand-inline">
+                        <div class="brand-logo" style="width:40px; height:40px; font-size:1.1rem; border-radius:12px;">OQ</div>
+                        <div>
+                            <strong style="font-size:1.05rem; display:block; color:var(--text-main); line-height:1.2;">Online Quiz Portal</strong>
+                            <span id="quizCategoryBadge" style="font-size:0.75rem; color:var(--text-secondary); font-weight:600;">Standard Evaluated Session</span>
+                        </div>
                     </div>
 
-
-                    <div class="quiz-brand-text">
-
-                        <strong>
-                            Online Quiz Portal
-                        </strong>
-
-                        <span>
-                            Test. Learn. Prepare.
-                        </span>
-
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span class="badge-pill blue" style="display:none;" id="assessmentBadge">Active</span>
+                        <div class="quiz-timer-pill" id="timer">
+                            15:00
+                        </div>
                     </div>
-
-
                 </div>
 
-
-                <div class="quiz-meta">
-
-                    <div class="quiz-meta-badge">
-                        Online Assessment
-                    </div>
-
-                    <div id="timer">
-                        15:00
-                    </div>
-
+                <!-- PROGRESS BAR -->
+                <div class="progress-meta-row">
+                    <span class="quiz-progress-label">Evaluation Progress</span>
+                    <span class="quiz-progress-status" id="progressStatus">Question 1</span>
+                </div>
+                <div class="progress-container">
+                    <div id="progressBar"></div>
                 </div>
 
+                <!-- QUESTION NUMBER & TEXT (IDs preserved) -->
+                <h3 id="questionNumber">Question 1 of 15</h3>
+
+                <div class="question-card-inner question-box">
+                    <p id="questionText">Loading question content...</p>
+                </div>
+
+                <!-- OPTIONS (IDs preserved) -->
+                <div class="options options-list">
+                    <label class="option-choice-label">
+                        <input type="radio" name="answer" value="A">
+                        <span id="optionA"></span>
+                    </label>
+
+                    <label class="option-choice-label">
+                        <input type="radio" name="answer" value="B">
+                        <span id="optionB"></span>
+                    </label>
+
+                    <label class="option-choice-label">
+                        <input type="radio" name="answer" value="C">
+                        <span id="optionC"></span>
+                    </label>
+
+                    <label class="option-choice-label">
+                        <input type="radio" name="answer" value="D">
+                        <span id="optionD"></span>
+                    </label>
+                </div>
+
+                <!-- ACTION BUTTONS (IDs preserved) -->
+                <div class="quiz-buttons quiz-actions-grid">
+                    <button id="prevBtn" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <span>Previous</span>
+                    </button>
+
+                    <button id="nextBtn" type="button">
+                        <span>Next</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+
+                    <button id="submitBtn" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Submit Quiz</span>
+                    </button>
+                </div>
 
             </div>
-
-
-            <!-- =================================================
-                 PROGRESS
-                 ================================================= -->
-
-            <div class="quiz-progress-top">
-
-
-                <span class="quiz-progress-label">
-                    Quiz Progress
-                </span>
-
-
-                <span
-                    class="quiz-progress-status"
-                    id="progressStatus"
-                >
-                    Question 1
-                </span>
-
-
-            </div>
-
-
-            <div class="progress-container">
-
-                <div id="progressBar"></div>
-
-            </div>
-
-
-            <!-- =================================================
-                 QUESTION NUMBER
-                 Existing ID preserved
-                 ================================================= -->
-
-            <h3 id="questionNumber">
-                Question 1 of 15
-            </h3>
-
-
-            <!-- =================================================
-                 QUESTION
-                 Existing ID preserved
-                 ================================================= -->
-
-            <div class="question-box">
-
-                <p id="questionText"></p>
-
-            </div>
-
-
-            <!-- =================================================
-                 OPTIONS
-                 Existing IDs preserved
-                 ================================================= -->
-
-            <div class="options">
-
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="answer"
-                        value="A"
-                    >
-
-                    <span id="optionA"></span>
-
-                </label>
-
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="answer"
-                        value="B"
-                    >
-
-                    <span id="optionB"></span>
-
-                </label>
-
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="answer"
-                        value="C"
-                    >
-
-                    <span id="optionC"></span>
-
-                </label>
-
-
-                <label>
-
-                    <input
-                        type="radio"
-                        name="answer"
-                        value="D"
-                    >
-
-                    <span id="optionD"></span>
-
-                </label>
-
-
-            </div>
-
-
-            <!-- =================================================
-                 NAVIGATION
-                 ================================================= -->
-
-            <div class="quiz-buttons">
-
-
-                <button id="prevBtn">
-                    Previous
-                </button>
-
-
-                <button id="nextBtn">
-                    Next
-                </button>
-
-
-                <button id="submitBtn">
-                    Submit Quiz
-                </button>
-
-
-            </div>
-
-
         </div>
-
-
     </div>
 
+    <!-- TECH EFFECTS ENGINE -->
+    <script src="js/tech-effects.js"></script>
 
     <!-- EXISTING QUIZ JAVASCRIPT -->
-
+    <script src="js/api-config.js"></script>
     <script src="js/quiz.js"></script>
 
-
-    <!-- =====================================================
-         SMALL UI SYNC
-         Does NOT control the quiz logic.
-         Only updates visual question progress if possible.
-         ===================================================== -->
-
+    <!-- PROGRESS SYNC & CATEGORY BADGE SCRIPT -->
     <script>
+        const originalProgressBar = document.getElementById("progressBar");
+        const originalQuestionNumber = document.getElementById("questionNumber");
+        const progressStatus = document.getElementById("progressStatus");
+        const quizCategoryBadge = document.getElementById("quizCategoryBadge");
 
-        const originalProgressBar =
-            document.getElementById(
-                "progressBar"
-            );
+        const catNames = {
+            "1": "Java",
+            "2": "DBMS",
+            "3": "Operating System",
+            "4": "Computer Networks",
+            "5": "HTML",
+            "6": "CSS",
+            "7": "JavaScript",
+            "8": "SQL",
+            "9": "Aptitude",
+            "10": "Logical Reasoning",
+            "11": "Verbal Ability"
+        };
 
-
-        const originalQuestionNumber =
-            document.getElementById(
-                "questionNumber"
-            );
-
-
-        const progressStatus =
-            document.getElementById(
-                "progressStatus"
-            );
-
-
-        function syncQuizProgress() {
-
-            if (
-                !originalQuestionNumber ||
-                !progressStatus
-            ) {
-
-                return;
-
-            }
-
-
-            const text =
-                originalQuestionNumber.innerText
-                || "";
-
-
-            const match =
-                text.match(
-                    /Question\s+(\d+)/i
-                );
-
-
-            if (match) {
-
-                progressStatus.innerText =
-                    "Question " +
-                    match[1];
-
-            }
-
+        const activeCatId = localStorage.getItem("categoryId");
+        if (quizCategoryBadge && activeCatId && catNames[activeCatId]) {
+            quizCategoryBadge.innerText = catNames[activeCatId] + " • Evaluated Session";
         }
 
+        function syncQuizProgress() {
+            if (!originalQuestionNumber || !progressStatus) return;
+            const text = originalQuestionNumber.innerText || "";
+            if (text) {
+                progressStatus.innerText = text;
+            }
+        }
 
-        setInterval(
-            syncQuizProgress,
-            300
-        );
-
+        setInterval(syncQuizProgress, 300);
     </script>
 
-
 </body>
-
 </html>
